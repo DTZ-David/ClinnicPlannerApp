@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_typing_uninitialized_variables
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

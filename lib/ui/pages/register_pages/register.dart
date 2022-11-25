@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, prefer_typing_uninitialized_variables
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../../../data/services/peticionesPacienteFirebase.dart';
 import '../../../domain/models/paciente.dart';
 
 class RegisterStepper extends StatefulWidget {

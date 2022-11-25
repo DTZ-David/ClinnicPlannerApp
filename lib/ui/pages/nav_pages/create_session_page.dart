@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../domain/controller/controlfirebase.dart';
-import '../../../domain/models/paciente.dart';
 
 class CreateSessionPage extends StatefulWidget {
   const CreateSessionPage({super.key});
@@ -18,9 +19,10 @@ class CreateSessionPage extends StatefulWidget {
 
 var aux = 'Seleccione...';
 var imagen = "";
-var nombre = "Hector";
-var apellido = "Casta;o";
-var direccion = "asdas";
+var nombre = "";
+var apellido = "";
+var direccion = "";
+int _index = 0;
 
 class _CreateSessionPageState extends State<CreateSessionPage> {
   @override
@@ -34,13 +36,9 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
       for (var i = 0; i < controladorPaciente.getPacienteGnral!.length; i++) {
         list.add(controladorPaciente.getPacienteGnral![i].nombre);
       }
-
-      list = [''];
+      // list = [''];
     });
-    //imagen = controladorPaciente.getPacienteGnral![1].foto;
-    //nombre = controladorPaciente.getPacienteGnral![1].nombre;
-    //apellido = controladorPaciente.getPacienteGnral![1].apellido;
-    //direccion = controladorPaciente.getPacienteGnral![1].direccion;
+
     final Stream<QuerySnapshot> _paciente = FirebaseFirestore.instance
         .collection('Paciente')
         .snapshots(includeMetadataChanges: true);
@@ -120,12 +118,14 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                 showSelectedItems: true,
                                 items: list,
                                 selectedItem: aux,
-                                onChanged: (String? newValue) {
+                                onChanged: (newValue) {
                                   setState(() {
                                     aux = newValue!;
                                     nombre = 'Hector';
                                     apellido = 'Castano';
                                     direccion = 'Conjunto';
+                                    _index = list.indexOf(newValue);
+                                    print(_index);
                                   });
                                 },
                               );
@@ -174,7 +174,8 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          nombre,
+                                          controladorPaciente
+                                              .getPacienteGnral![_index].nombre,
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ],
@@ -186,7 +187,9 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          apellido,
+                                          controladorPaciente
+                                              .getPacienteGnral![_index]
+                                              .apellido,
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ],
@@ -198,7 +201,9 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          direccion,
+                                          controladorPaciente
+                                              .getPacienteGnral![_index]
+                                              .direccion,
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ],

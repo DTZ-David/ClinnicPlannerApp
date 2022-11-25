@@ -19,7 +19,7 @@ class _LoginfState extends State<Loginf> {
   TextEditingController controlpassw = TextEditingController();
   ControlAuthFirebase controlu = Get.find();
 
-  late bool _loading = false;
+  late final bool _loading = false;
 
   @override
   Widget build(BuildContext context) {

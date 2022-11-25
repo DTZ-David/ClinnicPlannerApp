@@ -133,6 +133,7 @@ class cardWidget extends StatelessWidget {
 }
 
 class line_widget extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final lines;
   const line_widget({
     Key? key,
@@ -155,6 +156,7 @@ class line_widget extends StatelessWidget {
 }
 
 class dateWidget extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final index;
 
   const dateWidget({super.key, required this.index});
