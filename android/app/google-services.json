@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "433170677930",
+    "project_id": "clinnicplanner-56316",
+    "storage_bucket": "clinnicplanner-56316.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433170677930:android:2c48f7c372a591703e50d3",
+        "android_client_info": {
+          "package_name": "com.example.clinnic_planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433170677930-9rd4gk6nblrr6sifl0gsbiibpdkh92ev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASUZs-RpVZVMc99npK8ZY-gObysvnUJgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433170677930-9rd4gk6nblrr6sifl0gsbiibpdkh92ev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'authf/loginf.dart';
+import 'authf/registro.dart';
+import 'pages/homeL.dart';
+import 'pages/nav_pages/main_page.dart';
+import 'pages/nav_pages/perfil_edit.dart';
+import 'pages/nav_pages/settings_page.dart';
+import 'pages/register_pages/register.dart';
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'Clinnic Planner',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: const Color.fromARGB(150, 6, 68, 108),
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(secondary: const Color.fromARGB(150, 6, 68, 108))),
+      routes: {
+        '/homel': (context) => const HomeL(),
+        '/loginf': (context) => const Loginf(),
+        '/registroLog': (context) => const Registro(),
+        '/registro': (context) => const RegisterStepper(),
+        '/editprofilepage': (context) => const EditProfilePage(),
+        '/mainpage': (context) => const MainPage(),
+        '/settingspage': (context) => const SettingsPage()
+      },
+      home: const HomeL(),
+    );
+  }
+}

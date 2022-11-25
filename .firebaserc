@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "clinnic-planner",
+    "Clinnic": "clinnic-planner"
+  },
+  "targets": {},
+  "etags": {}
+}
