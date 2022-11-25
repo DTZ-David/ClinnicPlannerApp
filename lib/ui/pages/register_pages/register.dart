@@ -80,7 +80,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
                 //   'email': controlemail,
                 //   'telefono': controltelefono,
                 //   'edad': controledad.text,
-                //   'foto': ''
+                //   'foto': '
                 // };
                 // PeticionesPaciente.crearPaciente(paciente, _image);
                 final paciente = Paciente(

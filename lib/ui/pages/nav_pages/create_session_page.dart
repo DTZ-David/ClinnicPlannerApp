@@ -16,19 +16,21 @@ class CreateSessionPage extends StatefulWidget {
   State<CreateSessionPage> createState() => _CreateSessionPageState();
 }
 
+var aux = 'Seleccione...';
+var imagen = "";
+var nombre = "Hector";
+var apellido = "Casta;o";
+var direccion = "asdas";
+
 class _CreateSessionPageState extends State<CreateSessionPage> {
   @override
   Widget build(BuildContext context) {
     ConsultasController controladorPaciente = Get.find();
     controladorPaciente.consultarPaciente().then((value) => null);
-    var imagen = "";
-    var nombre = "";
-    var apellido = "";
-    var direccion = "";
 
     List<String> list = [];
 
-    Timer miTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    Timer miTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
       for (var i = 0; i < controladorPaciente.getPacienteGnral!.length; i++) {
         list.add(controladorPaciente.getPacienteGnral![i].nombre);
       }
@@ -76,7 +78,6 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
         fecha = fecha + 1;
       }
     }
-    var selectedItem = 'Seleccione...';
 
     List hora = [
       '8:00 - 9:00',
@@ -110,19 +111,24 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                 return const Text("Loading");
                               }
                               return DropdownSearch<String>(
-                                  dropdownSearchDecoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: const BorderSide(
-                                              width: 1, color: Colors.black))),
-                                  mode: Mode.MENU,
-                                  showSelectedItems: true,
-                                  items: list,
-                                  selectedItem: selectedItem,
-                                  popupItemDisabled: (String s) =>
-                                      s.startsWith('I'),
-                                  onChanged: print);
+                                dropdownSearchDecoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: const BorderSide(
+                                            width: 1, color: Colors.black))),
+                                mode: Mode.MENU,
+                                showSelectedItems: true,
+                                items: list,
+                                selectedItem: aux,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    aux = newValue!;
+                                    nombre = 'Hector';
+                                    apellido = 'Castano';
+                                    direccion = 'Conjunto';
+                                  });
+                                },
+                              );
                             })
                       ],
                     ),
