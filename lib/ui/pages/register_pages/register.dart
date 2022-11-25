@@ -2,13 +2,14 @@
 
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../../../domain/models/paciente.dart';
+import '../../../domain/controller/controlfirebase.dart';
 
 class RegisterStepper extends StatefulWidget {
   const RegisterStepper({super.key});
@@ -37,7 +38,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
   TextEditingController controlfechanacimiento = TextEditingController();
   TextEditingController controledad = TextEditingController();
 
-  //ConsultasController controladorPaciente = Get.find();
+  ConsultasController controladorPaciente = Get.find();
 
   _camGaleria(bool op) async {
     XFile? image;
@@ -70,33 +71,33 @@ class _RegisterStepperState extends State<RegisterStepper> {
               final isLastStep = currentStep == getSteps().length - 1;
               if (isLastStep) {
                 Get.offAllNamed("/mainpage");
-                // var paciente = <String, dynamic>{
-                //   'tipoId': controltipoIdentificacion.text,
-                //   'identificacion': controlidentificacion.text,
-                //   'nombre': controlnombre.text,
-                //   'apellido': controlapellido.text,
-                //   'sexo': controlsexo.text,
-                //   'fechaNacimiento': controlfechanacimiento,
-                //   'direccion': controldireccion,
-                //   'email': controlemail,
-                //   'telefono': controltelefono,
-                //   'edad': controledad.text,
-                //   'foto': '
-                // };
+                var paciente = <String, dynamic>{
+                  'tipoId': tipoId,
+                  'identificacion': controlidentificacion.text,
+                  'nombre': controlnombre.text,
+                  'apellido': controlapellido.text,
+                  'sexo': sexo,
+                  'fechaNacimiento': controlfechanacimiento,
+                  'direccion': controldireccion,
+                  'email': controlemail,
+                  'telefono': controltelefono,
+                  'edad': controledad.text,
+                  'foto': ''
+                };
                 // PeticionesPaciente.crearPaciente(paciente, _image);
-                final paciente = Paciente(
-                    tipoId: tipoId,
-                    identificacion: controlidentificacion.text,
-                    nombre: controlnombre.text,
-                    apellido: controlapellido.text,
-                    sexo: sexo,
-                    fechaNacimiento: controlfechanacimiento.text,
-                    direccion: controldireccion.text,
-                    email: controlemail.text,
-                    telefono: controltelefono.text,
-                    edad: 23,
-                    foto: '');
-                createUser(paciente);
+                // final paciente = Paciente(
+                //     tipoId: tipoId,
+                //     identificacion: controlidentificacion.text,
+                //     nombre: controlnombre.text,
+                //     apellido: controlapellido.text,
+                //     sexo: sexo,
+                //     fechaNacimiento: controlfechanacimiento.text,
+                //     direccion: controldireccion.text,
+                //     email: controlemail.text,
+                //     telefono: controltelefono.text,
+                //     edad: 23,
+                //     foto: '');
+                PeticionesPaciente.crearPaciente(paciente, _image);
                 Get.offAllNamed('/mainpage');
               } else {
                 setState(() => currentStep += 1);
@@ -317,14 +318,5 @@ class _RegisterStepperState extends State<RegisterStepper> {
             ),
           );
         });
-  }
-
-  Future createUser(Paciente paciente) async {
-    final docUser = FirebaseFirestore.instance
-        .collection("Pacientes")
-        .doc(controlidentificacion.text);
-
-    final json = paciente.toJson();
-    await docUser.set(json);
   }
 }

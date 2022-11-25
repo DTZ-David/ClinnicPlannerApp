@@ -29,14 +29,12 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
   Widget build(BuildContext context) {
     ConsultasController controladorPaciente = Get.find();
     controladorPaciente.consultarPaciente().then((value) => null);
-
     List<String> list = [];
 
-    Timer miTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    final miTimer = Timer(const Duration(seconds: 3), () {
       for (var i = 0; i < controladorPaciente.getPacienteGnral!.length; i++) {
         list.add(controladorPaciente.getPacienteGnral![i].nombre);
       }
-      // list = [''];
     });
 
     final Stream<QuerySnapshot> _paciente = FirebaseFirestore.instance
@@ -125,7 +123,6 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     apellido = 'Castano';
                                     direccion = 'Conjunto';
                                     _index = list.indexOf(newValue);
-                                    print(_index);
                                   });
                                 },
                               );
