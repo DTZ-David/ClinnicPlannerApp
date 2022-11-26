@@ -23,7 +23,7 @@ var imagen =
     'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2FIdentificación%3A?alt=media&token=de2a1266-6e76-40cb-904c-7dd32eebf4cb';
 var imagen1 = '';
 var imagen2 = '';
-int _index = 0;
+int _index = 2;
 
 class _CreateSessionPageState extends State<CreateSessionPage> {
   @override
@@ -33,10 +33,23 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
     List<String> list = [];
 
     final miTimer = Timer(const Duration(seconds: 3), () {
-      for (var i = 1; i < controladorPaciente.getPacienteGnral!.length; i++) {
-        list.add(controladorPaciente.getPacienteGnral![i].nombre);
+      for (var i = 0; i < controladorPaciente.getPacienteGnral!.length; i++) {
+        if (controladorPaciente.getPacienteGnral![i].identificacion !=
+            'Identificación:') {
+          list.add(controladorPaciente.getPacienteGnral![i].nombre);
+        } else {
+          _index = i;
+        }
       }
     });
+    // Future<String?> cargarImg(String name) async {
+    //   try {
+    //     var task =
+    //         await FirebaseStorage.instance.ref('Pacientes').child('1193231096');
+    //     print('----------------------------');
+    //     return await task.getDownloadURL();
+    //   } on FirebaseException catch (_) {}
+    // }
 
     final Stream<QuerySnapshot> _paciente = FirebaseFirestore.instance
         .collection('Paciente')
@@ -113,7 +126,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
                                             width: 1, color: Colors.black))),
-                                popupBackgroundColor: Colors.transparent,
+                                popupBackgroundColor: Colors.white,
                                 mode: Mode.MENU,
                                 showSelectedItems: true,
                                 items: list,
@@ -122,6 +135,14 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                   setState(() {
                                     aux = newValue!;
                                     _index = list.indexOf(newValue);
+                                    if (_index == 1) {
+                                      imagen =
+                                          'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2F1193231096?alt=media&token=3703123b-6cd0-4353-a64d-c4ddb92955a2';
+                                    }
+                                    if (_index == 0) {
+                                      imagen =
+                                          'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2F1065854795?alt=media&token=4b849746-524e-4a28-b76f-7ef696cf051a';
+                                    }
                                   });
                                 },
                               );
@@ -213,44 +234,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                           style: TextStyle(
                               fontSize: 20, fontFamily: 'RobotoSlab')),
                     ),
-                    Container(
-                      width: double.maxFinite,
-                      height: 80,
-                      margin: const EdgeInsets.only(left: 20),
-                      child: GestureDetector(
-                        child: ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (_, index) {
-                              return Column(
-                                children: [
-                                  Container(
-                                      margin: const EdgeInsets.only(
-                                          right: 15, top: 10),
-                                      width: 70,
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.black)),
-                                      child: Column(children: [
-                                        const SizedBox(height: 10),
-                                        Text(listFechas
-                                            .elementAt(index)
-                                            .toString()),
-                                        const SizedBox(height: 10),
-                                        Text(listaDias.elementAt(index)),
-                                      ]))
-                                ],
-                              );
-                            }),
-                        onTap: () {
-                          print('Si pasa por aca');
-                        },
-                      ),
-                    ),
+                    CargarFecha(listFechas: listFechas, listaDias: listaDias),
                     Container(
                       margin: const EdgeInsets.only(left: 20, top: 0),
                       child: const Text('Hora',
@@ -316,5 +300,56 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
             )
           : const Center(child: Icon(Icons.charging_station)),
     ));
+  }
+}
+
+class CargarFecha extends StatefulWidget {
+  const CargarFecha({
+    Key? key,
+    required this.listFechas,
+    required this.listaDias,
+  }) : super(key: key);
+
+  final List<int> listFechas;
+  final List<String> listaDias;
+
+  @override
+  State<CargarFecha> createState() => _CargarFechaState();
+}
+
+int color = 0;
+
+class _CargarFechaState extends State<CargarFecha> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      height: 80,
+      margin: const EdgeInsets.only(left: 20),
+      child: ListView.builder(
+          itemCount: 6,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (_, index) {
+            return Container(
+              margin: const EdgeInsets.only(right: 15, top: 10),
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black)),
+              child: ListTile(
+                title: Text(widget.listFechas.elementAt(index).toString()),
+                subtitle: Text(widget.listaDias.elementAt(index)),
+                tileColor: color == index ? Colors.blue : null,
+                onTap: () {
+                  setState(() {
+                    color = index;
+                  });
+                },
+              ),
+            );
+          }),
+    );
   }
 }
