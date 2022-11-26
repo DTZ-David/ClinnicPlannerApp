@@ -1,20 +1,13 @@
+import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
+import 'package:clinnic_planner/domain/models/paciente.dart';
 import 'package:get/get.dart';
-
-import '../../data/services/peticionesPacienteFirebase.dart';
-import '../models/paciente.dart';
 
 class ConsultasController extends GetxController {
   final Rxn<List<Paciente>> _pacienteFirestore = Rxn<List<Paciente>>();
 
-  Future<void> consultarPaciente() async {
+  Future<void> consultaPaciente() async {
     _pacienteFirestore.value = await PeticionesPaciente.consultarGral();
   }
 
-  Future<void> consultarPacienteById(String id) async {
-    _pacienteFirestore.value = await PeticionesPaciente.consultarById(id);
-  }
-
   List<Paciente>? get getPacienteGnral => _pacienteFirestore.value;
-
-  List<Paciente>? get getPacienteById => _pacienteFirestore.value;
 }

@@ -18,21 +18,22 @@ class CreateSessionPage extends StatefulWidget {
 }
 
 var aux = 'Seleccione...';
-var imagen = "";
-var nombre = "";
-var apellido = "";
-var direccion = "";
+var identificacion = '';
+var imagen =
+    'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2FIdentificación%3A?alt=media&token=de2a1266-6e76-40cb-904c-7dd32eebf4cb';
+var imagen1 = '';
+var imagen2 = '';
 int _index = 0;
 
 class _CreateSessionPageState extends State<CreateSessionPage> {
   @override
   Widget build(BuildContext context) {
     ConsultasController controladorPaciente = Get.find();
-    controladorPaciente.consultarPaciente().then((value) => null);
+    controladorPaciente.consultaPaciente().then((value) => null);
     List<String> list = [];
 
     final miTimer = Timer(const Duration(seconds: 3), () {
-      for (var i = 0; i < controladorPaciente.getPacienteGnral!.length; i++) {
+      for (var i = 1; i < controladorPaciente.getPacienteGnral!.length; i++) {
         list.add(controladorPaciente.getPacienteGnral![i].nombre);
       }
     });
@@ -93,9 +94,9 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 40),
-                    Column(
-                      children: [
-                        StreamBuilder<QuerySnapshot>(
+                    Container(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: StreamBuilder<QuerySnapshot>(
                             stream: _paciente,
                             builder: (BuildContext context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -112,6 +113,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                         borderRadius: BorderRadius.circular(10),
                                         borderSide: const BorderSide(
                                             width: 1, color: Colors.black))),
+                                popupBackgroundColor: Colors.transparent,
                                 mode: Mode.MENU,
                                 showSelectedItems: true,
                                 items: list,
@@ -119,27 +121,22 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                 onChanged: (newValue) {
                                   setState(() {
                                     aux = newValue!;
-                                    nombre = 'Hector';
-                                    apellido = 'Castano';
-                                    direccion = 'Conjunto';
                                     _index = list.indexOf(newValue);
                                   });
                                 },
                               );
-                            })
-                      ],
-                    ),
+                            })),
                     SizedBox(
                       height: 320,
                       width: double.maxFinite,
                       child: ListView.builder(
                         itemCount: 1,
-                        //scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            padding: const EdgeInsets.fromLTRB(20, 30, 10, 10),
-                            height: 290,
-                            width: 300,
+                            padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                            height: 10,
+                            width: 360,
                             child: Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
@@ -148,7 +145,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     Stack(clipBehavior: Clip.none, children: [
                                   Positioned(
                                     top: -50,
-                                    left: -80,
+                                    left: 10,
                                     child: Container(
                                       margin: const EdgeInsets.only(
                                           left: 100, top: 10),
@@ -160,13 +157,12 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                             borderRadius:
                                                 BorderRadius.circular(80)),
                                         elevation: 2,
-                                        child: Image.asset(
-                                            "assets/images/psicologo.png"),
+                                        child: Image.network(imagen),
                                       ),
                                     ),
                                   ),
                                   Positioned(
-                                    top: 80,
+                                    top: 100,
                                     left: 29,
                                     child: Column(
                                       children: [
@@ -179,7 +175,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                     ),
                                   ),
                                   Positioned(
-                                    top: 130,
+                                    top: 120,
                                     left: 29,
                                     child: Column(
                                       children: [
@@ -200,7 +196,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                         Text(
                                           controladorPaciente
                                               .getPacienteGnral![_index]
-                                              .direccion,
+                                              .telefono,
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ],
@@ -318,7 +314,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                         ))
                   ]),
             )
-          : const Icon(Icons.add),
+          : const Center(child: Icon(Icons.charging_station)),
     ));
   }
 }

@@ -43,22 +43,13 @@ class _MainPageState extends State<MainPage> {
           showUnselectedLabels: false,
           showSelectedLabels: false,
           elevation: 10,
-          items: [
-            const BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-                label: 'Home'),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.notification_add), label: 'AddAppointment'),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.schedule), label: 'Agenda'),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/perfil.jpg',
-                  scale: 20,
-                ),
-                label: 'Account'),
+                icon: Icon(Icons.notification_add), label: 'AddAppointment'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.schedule), label: 'Agenda'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
           ]),
     );
   }

@@ -1,30 +1,41 @@
 // ignore_for_file: file_names
 
 import 'dart:developer';
-
+import 'package:clinnic_planner/domain/models/paciente.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fs;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../domain/models/paciente.dart';
-
 class PeticionesPaciente {
-  //static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;
+  static final fs.FirebaseStorage storage = fs.FirebaseStorage.instance;
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  static Future<void> crearPaciente(Map<String, dynamic> paciente, foto) async {
+  static Future<void> crearPaciente(Map<String, dynamic> catalogo, foto) async {
     var url = '';
     if (foto != null) {
-      url = await cargarfoto(foto, paciente['identificacion']);
+      url = await cargarfoto(foto, catalogo['identificacion']);
     }
 
-    paciente['foto'] = url.toString();
+    catalogo['foto'] = url.toString();
 
     await _db
         .collection('Pacientes')
-        .doc(paciente['identificacion'])
-        .set(paciente)
+        .doc(catalogo['apellido'])
+        .set(catalogo)
         .catchError((e) {});
     //return true;
+  }
+
+  Future createUser(Paciente paciente, foto) async {
+    var url = '';
+    if (foto != null) {
+      url = await cargarfoto(foto, paciente.identificacion);
+    }
+    final docUser = FirebaseFirestore.instance
+        .collection("Pacientes")
+        .doc(paciente.identificacion);
+
+    final json = paciente.toJson();
+    await docUser.set(json);
   }
 
   static Future<dynamic> cargarfoto(var foto, var idArt) async {
@@ -40,8 +51,8 @@ class PeticionesPaciente {
   }
 
   static Future<void> actualizarArticulo(
-      String id, Map<String, dynamic> paciente) async {
-    await _db.collection('Pacientes').doc(id).update(paciente).catchError((e) {
+      String id, Map<String, dynamic> catalogo) async {
+    await _db.collection('Pacientes').doc(id).update(catalogo).catchError((e) {
       log(e);
     });
     //return true;
@@ -60,22 +71,6 @@ class PeticionesPaciente {
       for (var doc in respuesta.docs) {
         log(doc.data().toString());
         lista.add(Paciente.desdeDoc(doc.data()));
-      }
-    });
-
-    return lista;
-  }
-
-  static Future<List<Paciente>> consultarById(String id) async {
-    List<Paciente> lista = [];
-    await _db
-        .collection("Pacientes")
-        .where("identificacion", isEqualTo: id)
-        .get()
-        .then((respuesta) {
-      for (var doc in respuesta.docs) {
-        log(doc.data().toString());
-        lista.add(Paciente.fromJson(doc.data()));
       }
     });
 

@@ -7,7 +7,7 @@ class Paciente {
   final String telefono;
   final String email;
   final String fechaNacimiento;
-  final int edad;
+  final String edad;
   final String sexo;
   final String foto;
 
@@ -26,17 +26,18 @@ class Paciente {
 
   factory Paciente.desdeDoc(Map<String, dynamic> data) {
     return Paciente(
-        tipoId: data['tipoId'],
-        identificacion: data['identificacion'],
-        nombre: data['nombre'],
-        apellido: data['apellido'],
-        sexo: data['sexo'],
-        fechaNacimiento: data['fechaNacimiento'],
-        direccion: data['direccion'],
-        email: data['email'],
-        telefono: data['telefono'],
-        edad: data['edad'],
-        foto: data['foto'] ?? '');
+      tipoId: data['tipoId'] ?? '',
+      identificacion: data['identificacion'] ?? '',
+      nombre: data['nombre'] ?? '',
+      apellido: data['apellido'] ?? '',
+      sexo: data['sexo'] ?? '',
+      fechaNacimiento: data['fechaNacimiento'] ?? '',
+      direccion: data['direccion'] ?? '',
+      email: data['email'] ?? '',
+      telefono: data['telefono'] ?? '',
+      edad: data['edad'] ?? '',
+      foto: data['foto'] ?? '',
+    );
   }
 
   static Paciente fromJson(Map<String, dynamic> json) => Paciente(

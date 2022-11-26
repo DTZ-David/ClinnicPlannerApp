@@ -3,13 +3,15 @@
 import 'dart:io';
 
 import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../../domain/controller/controlfirebase.dart';
+import '../../../domain/models/paciente.dart';
 
 class RegisterStepper extends StatefulWidget {
   const RegisterStepper({super.key});
@@ -71,33 +73,37 @@ class _RegisterStepperState extends State<RegisterStepper> {
               final isLastStep = currentStep == getSteps().length - 1;
               if (isLastStep) {
                 Get.offAllNamed("/mainpage");
-                var paciente = <String, dynamic>{
-                  'tipoId': tipoId,
-                  'identificacion': controlidentificacion.text,
-                  'nombre': controlnombre.text,
-                  'apellido': controlapellido.text,
-                  'sexo': sexo,
-                  'fechaNacimiento': controlfechanacimiento,
-                  'direccion': controldireccion,
-                  'email': controlemail,
-                  'telefono': controltelefono,
-                  'edad': controledad.text,
-                  'foto': ''
-                };
+                // var paciente = <String, dynamic>{
+                //   'tipoId': tipoId,
+                //   'identificacion': controlidentificacion.text,
+                //   'nombre': controlnombre.text,
+                //   'apellido': controlapellido.text,
+                //   'sexo': sexo,
+                //   'fechaNacimiento': controlfechanacimiento,
+                //   'direccion': controldireccion,
+                //   'email': controlemail,
+                //   'telefono': controltelefono,
+                //   'edad': controledad.text,
+                //   'foto': ''
+                // };
                 // PeticionesPaciente.crearPaciente(paciente, _image);
-                // final paciente = Paciente(
-                //     tipoId: tipoId,
-                //     identificacion: controlidentificacion.text,
-                //     nombre: controlnombre.text,
-                //     apellido: controlapellido.text,
-                //     sexo: sexo,
-                //     fechaNacimiento: controlfechanacimiento.text,
-                //     direccion: controldireccion.text,
-                //     email: controlemail.text,
-                //     telefono: controltelefono.text,
-                //     edad: 23,
-                //     foto: '');
-                PeticionesPaciente.crearPaciente(paciente, _image);
+                DateTime edad = DateTime.parse(controlfechanacimiento.text);
+                int edad1 = (DateTime.now().year - edad.year);
+
+                final paciente = Paciente(
+                    tipoId: tipoId,
+                    identificacion: controlidentificacion.text,
+                    nombre: controlnombre.text,
+                    apellido: controlapellido.text,
+                    sexo: sexo,
+                    fechaNacimiento: controlfechanacimiento.text,
+                    direccion: controldireccion.text,
+                    email: controlemail.text,
+                    telefono: controltelefono.text,
+                    edad: edad1.toString(),
+                    foto: '');
+                createUser(paciente, _image);
+                controladorPaciente.consultaPaciente().then((value) => null);
                 Get.offAllNamed('/mainpage');
               } else {
                 setState(() => currentStep += 1);
@@ -172,7 +178,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
                                 height: 100,
                                 child: const Icon(
                                   Icons.camera_alt_outlined,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                       ),
@@ -318,5 +324,18 @@ class _RegisterStepperState extends State<RegisterStepper> {
             ),
           );
         });
+  }
+
+  Future createUser(Paciente paciente, foto) async {
+    var url = '';
+    if (foto != null) {
+      url = await PeticionesPaciente.cargarfoto(foto, paciente.identificacion);
+    }
+    final docUser = FirebaseFirestore.instance
+        .collection("Pacientes")
+        .doc(paciente.identificacion);
+
+    final json = paciente.toJson();
+    await docUser.set(json);
   }
 }
