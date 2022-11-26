@@ -241,40 +241,8 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                           style: TextStyle(
                               fontSize: 20, fontFamily: 'RobotoSlab')),
                     ),
-                    Container(
-                      width: double.maxFinite,
-                      height: 80,
-                      margin: const EdgeInsets.only(left: 20),
-                      child: GestureDetector(
-                        child: ListView.builder(
-                            itemCount: 7,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (_, index) {
-                              return Column(
-                                children: [
-                                  Container(
-                                      margin: const EdgeInsets.only(
-                                          right: 15, top: 10),
-                                      width: 140,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.black)),
-                                      child: Column(children: [
-                                        const SizedBox(height: 10),
-                                        Text(hora.elementAt(index)),
-                                      ]))
-                                ],
-                              );
-                            }),
-                        onTap: () {
-                          print('Si pasa por aca');
-                        },
-                      ),
-                    ),
+                    CargarHora(listFechas: listFechas, hora: hora),
+                    const SizedBox(height: 20),
                     Container(
                         margin: const EdgeInsets.only(left: 120),
                         height: 40,
@@ -300,6 +268,59 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
             )
           : const Center(child: Icon(Icons.charging_station)),
     ));
+  }
+}
+
+class CargarHora extends StatefulWidget {
+  const CargarHora({
+    Key? key,
+    required this.listFechas,
+    required this.hora,
+  }) : super(key: key);
+
+  final List<int> listFechas;
+  final List hora;
+
+  @override
+  State<CargarHora> createState() => _CargarHoraState();
+}
+
+class _CargarHoraState extends State<CargarHora> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      height: 50,
+      margin: const EdgeInsets.only(left: 20),
+      child: ListView.builder(
+          itemCount: 6,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (_, index) {
+            return Container(
+              margin: const EdgeInsets.only(right: 15, top: 10),
+              width: 160,
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: color == index
+                      ? const Color.fromARGB(250, 6, 68, 108)
+                      : null,
+                  border: Border.all(color: Colors.black)),
+              child: ListTile(
+                title: Text(
+                  widget.hora.elementAt(index).toString(),
+                ),
+                subtitle: const Text(""),
+                //tileColor: color == index ? Colors.blue : null,
+                onTap: () {
+                  setState(() {
+                    color = index;
+                  });
+                },
+              ),
+            );
+          }),
+    );
   }
 }
 
@@ -336,12 +357,14 @@ class _CargarFechaState extends State<CargarFecha> {
               height: 70,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  color: color == index
+                      ? const Color.fromARGB(250, 6, 68, 108)
+                      : null,
                   border: Border.all(color: Colors.black)),
               child: ListTile(
                 title: Text(widget.listFechas.elementAt(index).toString()),
                 subtitle: Text(widget.listaDias.elementAt(index)),
-                tileColor: color == index ? Colors.blue : null,
+                //tileColor: color == index ? Colors.blue : null,
                 onTap: () {
                   setState(() {
                     color = index;
