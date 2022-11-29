@@ -372,7 +372,7 @@ class _CargarFechaState extends State<CargarFecha> {
                   widget.listFechas.elementAt(index).toString(),
                   style: TextStyle(
                     color: color == index
-                        ? Color.fromARGB(255, 255, 255, 255)
+                        ? const Color.fromARGB(255, 255, 255, 255)
                         : null,
                   ),
                 ),
@@ -380,7 +380,7 @@ class _CargarFechaState extends State<CargarFecha> {
                   widget.listaDias.elementAt(index),
                   style: TextStyle(
                     color: color == index
-                        ? Color.fromARGB(255, 255, 255, 255)
+                        ? const Color.fromARGB(255, 255, 255, 255)
                         : null,
                   ),
                 ),
@@ -400,25 +400,25 @@ class _CargarFechaState extends State<CargarFecha> {
 void mensajeAlerta(BuildContext context1, String texto) {
   var mensaje = texto;
   showDialog(
-      barrierColor: Color.fromARGB(175, 104, 104, 103),
+      barrierColor: const Color.fromARGB(175, 104, 104, 103),
       context: context1,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Color.fromARGB(250, 6, 68, 108),
-          title: Text(
+          title: const Text(
             "Estado del Proceso",
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           ),
           content: Text(
             mensaje,
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+            style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           ),
           actions: [
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.check, color: Colors.green))
+                icon: const Icon(Icons.check, color: Colors.green))
           ],
         );
       });

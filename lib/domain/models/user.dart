@@ -1,20 +1,21 @@
 class User {
-  final String id;
-  final String nombre;
+  final String email;
+  final String password;
   final String rol;
-  final String user;
 
-  User(
-      {required this.id,
-      required this.nombre,
-      required this.rol,
-      required this.user});
+  User({
+    required this.email,
+    required this.password,
+    required this.rol,
+  });
 
   factory User.desdeJson(Map<String, dynamic> json) {
     return User(
-        id: json['id'],
-        nombre: json['nombre'],
-        rol: json['rol'],
-        user: json['user']);
+        email: json['email'], password: json['password'], rol: json['rol']);
   }
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
+        'rol': rol,
+      };
 }

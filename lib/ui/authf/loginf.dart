@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../domain/controller/controluserf.dart';
-import '../pages/nav_pages/main_page.dart';
+import '../pages/nav_pages_psychologist/main_page.dart';
 import 'registro.dart';
 
 class Loginf extends StatefulWidget {

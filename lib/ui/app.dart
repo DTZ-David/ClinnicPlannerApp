@@ -1,12 +1,13 @@
+import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/main_page.dart';
+import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/perfil_edit.dart';
+import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'authf/loginf.dart';
 import 'authf/registro.dart';
 import 'pages/homeL.dart';
-import 'pages/nav_pages/main_page.dart';
-import 'pages/nav_pages/perfil_edit.dart';
-import 'pages/nav_pages/settings_page.dart';
+
 import 'pages/register_pages/register.dart';
 
 class App extends StatelessWidget {

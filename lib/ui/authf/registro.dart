@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import '../../data/services/peticionesUserFirebase.dart';
 import '../../domain/controller/controluserf.dart';
+import '../../domain/models/user.dart';
 
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
@@ -133,11 +135,16 @@ class _RegistroState extends State<Registro> {
   _registro(BuildContext context) {
     if (!_loading) {
       setState(() {
-      _loading = true;
+        _loading = true;
         controlu
             .registrarEmail(controluser.text, controlpassw.text)
             .then((value) {
           if (controlu.emailf != 'Sin Registro') {
+            final user = User(
+                email: controluser.text,
+                password: controlpassw.text,
+                rol: 'Paciente');
+            PeticionesUser.createUser(user);
             Get.offAllNamed('/registro');
           } else {
             Get.showSnackbar(const GetSnackBar(
