@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:clinnic_planner/ui/pages/nav_pages_patient/main_pagePaciente.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../domain/controller/control_userFirebase.dart';
 import '../../domain/controller/controluserf.dart';
 import '../pages/nav_pages_psychologist/main_page.dart';
 import 'registro.dart';
@@ -167,21 +171,35 @@ class _LoginfState extends State<Loginf> {
   }
 
   _login(BuildContext context) {
-    // setState(() {
-    //   controlu.iniciarSesion(controluser.text, controlpassw.text).then((value) {
-    //     if (controlu.emailf != 'Sin Registro') {
-    Get.to(() => const MainPage(),
-        transition: Transition.cupertino, duration: const Duration(seconds: 1));
-    //     } else {
-    //       Get.showSnackbar(const GetSnackBar(
-    //         title: 'Validacion de Usuarios',
-    //         message: 'Datos Invalidos',
-    //         icon: Icon(Icons.warning),
-    //         duration: Duration(seconds: 5),
-    //         backgroundColor: Colors.red,
-    //       ));
-    //     }
-    //   });
-    // });
+    ConsultasControllerUser controladorUser = Get.find();
+    controladorUser.consultarUsuario().then((value) => null);
+
+    setState(() {
+      controlu.iniciarSesion(controluser.text, controlpassw.text).then((value) {
+        if (controlu.emailf != 'Sin Registro') {
+          final miTimer = Timer(const Duration(seconds: 3), () {
+            for (var i = 0; i < controladorUser.getUserGeneral!.length; i++) {
+              if (controladorUser.getUserGeneral![i].rol != 'Paciente') {
+                Get.to(() => const MainPage(),
+                    transition: Transition.cupertino,
+                    duration: const Duration(seconds: 1));
+              } else {
+                Get.to(() => const MainPagePaciente(),
+                    transition: Transition.cupertino,
+                    duration: const Duration(seconds: 1));
+              }
+            }
+          });
+        } else {
+          Get.showSnackbar(const GetSnackBar(
+            title: 'Validacion de Usuarios',
+            message: 'Datos Invalidos',
+            icon: Icon(Icons.warning),
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.red,
+          ));
+        }
+      });
+    });
   }
 }

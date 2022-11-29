@@ -1,8 +1,9 @@
 import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
+
 import 'package:clinnic_planner/domain/models/paciente.dart';
 import 'package:get/get.dart';
 
-class ConsultasController extends GetxController {
+class ConsultasControllerPaciente extends GetxController {
   final Rxn<List<Paciente>> _pacienteFirestore = Rxn<List<Paciente>>();
 
   Future<void> consultaPaciente() async {

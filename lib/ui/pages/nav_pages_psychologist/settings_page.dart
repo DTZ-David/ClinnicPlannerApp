@@ -127,6 +127,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                   onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Color.fromARGB(250, 6, 68, 108),
+                        content: Text(
+                          'Se ha Cerrado La Sesion',
+                          style: TextStyle(color: Colors.white),
+                        )));
                     Get.offAllNamed('/homel');
                   },
                 ),

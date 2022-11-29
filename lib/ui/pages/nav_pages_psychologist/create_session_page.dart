@@ -28,7 +28,7 @@ int _index = 2;
 class _CreateSessionPageState extends State<CreateSessionPage> {
   @override
   Widget build(BuildContext context) {
-    ConsultasController controladorPaciente = Get.find();
+    ConsultasControllerPaciente controladorPaciente = Get.find();
     controladorPaciente.consultaPaciente().then((value) => null);
     List<String> list = [];
 

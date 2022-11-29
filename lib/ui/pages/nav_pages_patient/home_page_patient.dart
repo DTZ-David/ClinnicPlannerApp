@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePagePaciente extends StatefulWidget {
+  const HomePagePaciente({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePagePaciente> createState() => _HomePagePacienteState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  var notas = [
-    "Caso severo de ansiedad \nno maneja bien el estrés \nposible pasado traumático",
-    "Cuadro de depresión \nprolongado posible familia \ndestructurada",
-    "Primera sesión"
-  ];
-
+class _HomePagePacienteState extends State<HomePagePaciente>
+    with TickerProviderStateMixin {
   var images = {
     'paciente.png': 'Luz Mendoza',
     'paciente_2.png': 'Angie Salazar',
@@ -113,18 +108,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     horas.values.elementAt(index),
                                     style: const TextStyle(fontSize: 20),
                                   )
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              top: 100,
-                              left: 29,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    notas.elementAt(index),
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
                                 ],
                               ),
                             ),

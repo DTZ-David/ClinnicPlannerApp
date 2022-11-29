@@ -40,7 +40,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
   TextEditingController controlfechanacimiento = TextEditingController();
   TextEditingController controledad = TextEditingController();
 
-  ConsultasController controladorPaciente = Get.find();
+  ConsultasControllerPaciente controladorPaciente = Get.find();
 
   _camGaleria(bool op) async {
     XFile? image;
