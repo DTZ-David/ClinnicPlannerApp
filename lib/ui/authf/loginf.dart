@@ -179,14 +179,17 @@ class _LoginfState extends State<Loginf> {
         if (controlu.emailf != 'Sin Registro') {
           final miTimer = Timer(const Duration(seconds: 3), () {
             for (var i = 0; i < controladorUser.getUserGeneral!.length; i++) {
-              if (controladorUser.getUserGeneral![i].rol != 'Paciente') {
-                Get.to(() => const MainPage(),
-                    transition: Transition.cupertino,
-                    duration: const Duration(seconds: 1));
-              } else {
-                Get.to(() => const MainPagePaciente(),
-                    transition: Transition.cupertino,
-                    duration: const Duration(seconds: 1));
+              if (controladorUser.getUserGeneral![i].email ==
+                  controluser.text) {
+                if (controladorUser.getUserGeneral![i].rol == 'Psicologo') {
+                  Get.to(() => const MainPage(),
+                      transition: Transition.cupertino,
+                      duration: const Duration(seconds: 1));
+                } else {
+                  Get.to(() => const MainPagePaciente(),
+                      transition: Transition.cupertino,
+                      duration: const Duration(seconds: 1));
+                }
               }
             }
           });
