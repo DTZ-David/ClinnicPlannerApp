@@ -1,5 +1,6 @@
 import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
 import 'package:clinnic_planner/data/services/peticionesSesionFirebase.dart';
+import 'package:clinnic_planner/domain/controller/control_psicologofirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_userFirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
   Get.put(ConsultasControllerPaciente());
   Get.put(PeticionesPaciente());
   Get.put(ConsultasControllerSesion());
+  Get.put(ConsultasControllerPsicologo());
   Get.put(PeticionesSesion());
   runApp(const App());
 }

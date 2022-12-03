@@ -134,42 +134,51 @@ class _RegistroState extends State<Registro> {
 
   _registro(BuildContext context) {
     if (!_loading) {
-      setState(() {
-        _loading = true;
-        controlu
-            .registrarEmail(controluser.text, controlpassw.text)
-            .then((value) {
-          if (controlu.emailf != 'Sin Registro') {
-            final user = User(
-                email: controluser.text,
-                password: controlpassw.text,
-                rol: 'Paciente');
-            PeticionesUser.createUser(user);
-            Get.offAllNamed('/registro');
-          } else {
-            Get.showSnackbar(const GetSnackBar(
-              title: 'Validacion de Usuarios',
-              message: 'Datos Invalidos',
-              icon: Icon(Icons.warning),
-              duration: Duration(seconds: 5),
-              backgroundColor: Colors.red,
-            ));
-          }
+      if (controluser.text.isEmpty || controlpassw.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Color.fromARGB(250, 6, 68, 108),
+            content: Text(
+              'Por favor ingrese su usuario y contraseña para ingresar',
+              style: TextStyle(color: Colors.white),
+            )));
+      } else {
+        setState(() {
+          _loading = true;
+          controlu
+              .registrarEmail(controluser.text, controlpassw.text)
+              .then((value) {
+            if (controlu.emailf != 'Sin Registro') {
+              final user = User(
+                  email: controluser.text,
+                  password: controlpassw.text,
+                  rol: 'Paciente');
+              PeticionesUser.createUser(user);
+              Get.offAllNamed('/registro');
+            } else {
+              Get.showSnackbar(const GetSnackBar(
+                title: 'Validacion de Usuarios',
+                message: 'Datos Invalidos',
+                icon: Icon(Icons.warning),
+                duration: Duration(seconds: 5),
+                backgroundColor: Colors.red,
+              ));
+            }
+          });
         });
-      });
+      }
     }
   }
 
   Future<bool?> showMyDialog() => showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Do you wanna come back?'),
+          title: const Text('Quieres volver al inicio de sesión?'),
           actions: [
             TextButton(
-                child: const Text('Cancel'),
+                child: const Text('No'),
                 onPressed: () => Navigator.pop(context, false)),
             TextButton(
-              child: const Text('HELL YEAH'),
+              child: const Text('Si'),
               onPressed: () => Get.offAllNamed('/loginf'),
             )
           ],

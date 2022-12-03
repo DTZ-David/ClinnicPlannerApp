@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:clinnic_planner/ui/pages/nav_pages_patient/create_session_pagePatient.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_patient/home_page_patient.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MainPagePaciente extends StatefulWidget {
 class _MainPagePacienteState extends State<MainPagePaciente> {
   List pages = [
     const HomePagePaciente(),
-    const CreateSessionPage(),
+    const CreateSessionPacientePage(),
     const AgendaPage(),
     const SettingsPage(),
     const EditProfilePage()

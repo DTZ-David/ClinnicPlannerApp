@@ -26,7 +26,7 @@ class _LoginfState extends State<Loginf> {
   TextEditingController controlpassw = TextEditingController();
   ControlAuthFirebase controlu = Get.find();
 
-  late final bool _loading = false;
+  late bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -182,35 +182,51 @@ class _LoginfState extends State<Loginf> {
 
     ConsultasControllerSesion controladorSesion = Get.find();
     controladorSesion.consultaSesion().then((value) => null);
-    setState(() {
-      controlu.iniciarSesion(controluser.text, controlpassw.text).then((value) {
-        if (controlu.emailf != 'Sin Registro') {
-          final miTimer = Timer(const Duration(seconds: 3), () {
-            for (var i = 0; i < controladorUser.getUserGeneral!.length; i++) {
-              if (controladorUser.getUserGeneral![i].email ==
-                  controluser.text) {
-                if (controladorUser.getUserGeneral![i].rol == 'Psicologo') {
-                  Get.to(() => const MainPage(),
-                      transition: Transition.cupertino,
-                      duration: const Duration(seconds: 1));
-                } else {
-                  Get.to(() => const MainPagePaciente(),
-                      transition: Transition.cupertino,
-                      duration: const Duration(seconds: 1));
+    if (!_loading) {
+      if (controlpassw.text.isEmpty || controluser.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Color.fromARGB(250, 6, 68, 108),
+            content: Text(
+              'Por favor ingrese su usuario y contraseña para ingresar',
+              style: TextStyle(color: Colors.white),
+            )));
+      } else {
+        setState(() {
+          _loading = true;
+          controlu
+              .iniciarSesion(controluser.text, controlpassw.text)
+              .then((value) {
+            if (controlu.emailf != 'Sin Registro') {
+              final miTimer = Timer(const Duration(seconds: 3), () {
+                for (var i = 0;
+                    i < controladorUser.getUserGeneral!.length;
+                    i++) {
+                  if (controladorUser.getUserGeneral![i].email ==
+                      controluser.text) {
+                    if (controladorUser.getUserGeneral![i].rol == 'Psicologo') {
+                      Get.to(() => const MainPage(),
+                          transition: Transition.cupertino,
+                          duration: const Duration(seconds: 1));
+                    } else {
+                      Get.to(() => const MainPagePaciente(),
+                          transition: Transition.cupertino,
+                          duration: const Duration(seconds: 1));
+                    }
+                  }
                 }
-              }
+              });
+            } else {
+              Get.showSnackbar(const GetSnackBar(
+                title: 'Validacion de Usuarios',
+                message: 'Datos Invalidos',
+                icon: Icon(Icons.warning),
+                duration: Duration(seconds: 5),
+                backgroundColor: Colors.red,
+              ));
             }
           });
-        } else {
-          Get.showSnackbar(const GetSnackBar(
-            title: 'Validacion de Usuarios',
-            message: 'Datos Invalidos',
-            icon: Icon(Icons.warning),
-            duration: Duration(seconds: 5),
-            backgroundColor: Colors.red,
-          ));
-        }
-      });
-    });
+        });
+      }
+    }
   }
 }

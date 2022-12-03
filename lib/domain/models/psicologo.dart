@@ -7,7 +7,7 @@ class Psicologo {
   final String telefono;
   final String email;
   final String fechaNacimiento;
-  final int edad;
+  final String edad;
   final String sexo;
   final String foto;
 
@@ -26,16 +26,30 @@ class Psicologo {
 
   factory Psicologo.desdeDoc(Map<String, dynamic> data) {
     return Psicologo(
-        tipoId: data['tipoId'],
-        identificacion: data['identificacion'],
-        nombre: data['nombre'],
-        apellido: data['apellido'],
-        sexo: data['sexo'],
-        fechaNacimiento: data['fechaNacimiento'],
-        direccion: data['direccion'],
-        email: data['email'],
-        telefono: data['telefono'],
-        edad: data['edad'],
-        foto: data['foto'] ?? '');
+      tipoId: data['tipoId'] ?? '',
+      identificacion: data['identificacion'] ?? '',
+      nombre: data['nombre'] ?? '',
+      apellido: data['apellido'] ?? '',
+      sexo: data['sexo'] ?? '',
+      fechaNacimiento: data['fechaNacimiento'] ?? '',
+      direccion: data['direccion'] ?? '',
+      email: data['email'] ?? '',
+      telefono: data['telefono'] ?? '',
+      edad: data['edad'] ?? '',
+      foto: data['foto'] ?? '',
+    );
   }
+  Map<String, dynamic> toJson() => {
+        'tipoId': tipoId,
+        'identificacion': identificacion,
+        'nombre': nombre,
+        'apellido': apellido,
+        'sexo': sexo,
+        'fechaNacimiento': fechaNacimiento,
+        'direccion': direccion,
+        'email': email,
+        'telefono': telefono,
+        'edad': edad,
+        'foto': foto,
+      };
 }
