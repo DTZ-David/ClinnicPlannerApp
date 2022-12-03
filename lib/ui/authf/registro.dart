@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../data/services/peticionesUserFirebase.dart';
 import '../../domain/controller/controluserf.dart';
-import '../../domain/models/user.dart';
+
 
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);

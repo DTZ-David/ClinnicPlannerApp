@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, prefer_typing_uninitialized_variables, file_names
 
 import 'dart:async';
 import 'package:clinnic_planner/domain/controller/control_psicologofirebase.dart';
@@ -8,6 +8,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/services/peticionesSesionFirebase.dart';
+import '../../../domain/controller/control_sesionfirebase.dart';
 
 class CreateSessionPacientePage extends StatefulWidget {
   const CreateSessionPacientePage({super.key});
@@ -22,13 +23,18 @@ var identificacion = '';
 var fecha2;
 var hora2;
 var id;
+var idPaciente;
+var idPsicologo;
 var _index;
+var aux2;
 
 class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
+  ConsultasControllerSesion controladorSesion = Get.find();
   @override
   Widget build(BuildContext context) {
     ConsultasControllerPsicologo controllerPsicologo = Get.find();
     controllerPsicologo.consultaPsicologo().then((value) => null);
+    controladorSesion.consultaSesion().then((value) => null);
     List<String> list = [];
 
     final miTimer = Timer(const Duration(seconds: 3), () {
@@ -39,6 +45,9 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
         } else {
           _index = i;
         }
+      }
+      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
+        id = i + 1;
       }
     });
     // Future<String?> cargarImg(String name) async {
@@ -57,24 +66,37 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
     int fecha = DateTime.now().day;
     List<int> listFechas = <int>[];
     List<String> listaDias = <String>[];
+    List<String> listaFechasN = <String>[];
     for (int i = 0; i < 7; i++) {
       if (dia == 1) {
         listaDias.add("Lunes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 2) {
         listaDias.add("Martes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 3) {
         listaDias.add("Miercoles");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 4) {
         listaDias.add("Jueves");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 5) {
         listaDias.add("Viernes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 6) {
         listaDias.add("Sabado");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 7) {
         listaDias.add("Lunes");
@@ -134,6 +156,9 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                                   setState(() {
                                     aux = newValue!;
                                     _index = list.indexOf(newValue);
+                                    idPsicologo = controllerPsicologo
+                                        .getPacienteGnral![_index]
+                                        .identificacion;
                                   });
                                 },
                               );
@@ -265,10 +290,10 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                               ))),
                           onPressed: () {
                             final sesion = Sesion(
-                              idSesion: '02',
+                              idSesion: id.toString(),
                               idPaciente: "1065854795",
-                              idPsicologo: "7555545",
-                              fecha: fecha2,
+                              idPsicologo: idPsicologo,
+                              fecha: listaFechasN[aux2],
                               hora: hora2,
                               notasSesion: 'asdasd',
                               estado: 'Pendiente',
@@ -407,6 +432,7 @@ class _CargarFechaState extends State<CargarFecha> {
                   setState(() {
                     color = index;
                     fecha2 = widget.listaDias.elementAt(index);
+                    aux2 = index;
                   });
                 },
               ),

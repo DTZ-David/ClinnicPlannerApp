@@ -24,10 +24,11 @@ var aux = 'Seleccione...';
 var identificacion = '';
 var fecha2;
 var hora2;
-var id;
+var id = 1;
 var idPaciente;
 var idPsicologo;
 var _index;
+var aux2;
 
 class _CreateSessionPageState extends State<CreateSessionPage> {
   ConsultasControllerSesion controladorSesion = Get.find();
@@ -47,7 +48,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
           _index = i;
         }
       }
-      for (var i = 0; i < controladorSesion.getSesionGnral!.length; i++) {
+      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
         id = i + 1;
       }
     });
@@ -57,26 +58,40 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
         .snapshots(includeMetadataChanges: true);
     int dia = DateTime.now().weekday;
     int fecha = DateTime.now().day;
+    int fechaaux;
     List<int> listFechas = <int>[];
     List<String> listaDias = <String>[];
+    List<String> listaFechasN = <String>[];
     for (int i = 0; i < 7; i++) {
       if (dia == 1) {
         listaDias.add("Lunes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 2) {
         listaDias.add("Martes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 3) {
         listaDias.add("Miercoles");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 4) {
         listaDias.add("Jueves");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 5) {
         listaDias.add("Viernes");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 6) {
         listaDias.add("Sabado");
+        listaFechasN
+            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
       }
       if (dia == 7) {
         listaDias.add("Lunes");
@@ -273,7 +288,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                               idSesion: id.toString(),
                               idPaciente: idPaciente,
                               idPsicologo: "49743233",
-                              fecha: fecha2,
+                              fecha: listaFechasN[aux2],
                               hora: hora2,
                               notasSesion: '',
                               estado: 'Pendiente',
@@ -412,6 +427,7 @@ class _CargarFechaState extends State<CargarFecha> {
                   setState(() {
                     color = index;
                     fecha2 = widget.listaDias.elementAt(index);
+                    aux2 = index;
                   });
                 },
               ),

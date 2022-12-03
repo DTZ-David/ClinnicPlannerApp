@@ -5,7 +5,6 @@ import 'package:clinnic_planner/ui/pages/nav_pages_patient/home_page_patient.dar
 import 'package:flutter/material.dart';
 
 import '../nav_pages_psychologist/agenda_page.dart';
-import '../nav_pages_psychologist/create_session_page.dart';
 import '../nav_pages_psychologist/perfil_edit.dart';
 import '../nav_pages_psychologist/settings_page.dart';
 

@@ -113,7 +113,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
                 PeticionesUser.createUser(user);
                 createUser(paciente, _image);
                 controladorPaciente.consultaPaciente().then((value) => null);
-                Get.offAllNamed('/mainpage');
+                Get.offAllNamed('/mainpagepaciente');
               } else {
                 setState(() => currentStep += 1);
               }

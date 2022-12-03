@@ -12,10 +12,10 @@ class User {
 
   factory User.desdeJson(Map<String, dynamic> json) {
     return User(
-        email: json['email'],
-        password: json['password'],
-        rol: json['rol'],
-        id: json['id']);
+        email: json['email'] ?? '',
+        password: json['password'] ?? '',
+        rol: json['rol'] ?? '',
+        id: json['id'] ?? '');
   }
   Map<String, dynamic> toJson() =>
       {'email': email, 'password': password, 'rol': rol, 'id': id};
