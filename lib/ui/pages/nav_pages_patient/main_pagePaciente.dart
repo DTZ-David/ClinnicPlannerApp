@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:clinnic_planner/ui/pages/nav_pages_patient/home_page_patient.dart';
 import 'package:flutter/material.dart';
 

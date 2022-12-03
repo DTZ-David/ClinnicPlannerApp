@@ -2,9 +2,13 @@
 
 
 
-          
-          
-          style: ElevatedButton.styleFrom(
-                      
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          primary: const Color.fromARGB(250, 6, 68, 108)),
+
+                          rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2022, 11, 30);
+    }
+  }
+}

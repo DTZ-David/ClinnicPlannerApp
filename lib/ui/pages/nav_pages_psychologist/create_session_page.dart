@@ -1,14 +1,16 @@
-// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print
+// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, prefer_typing_uninitialized_variables
 
 import 'dart:async';
 
+import 'package:clinnic_planner/domain/models/sesion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../domain/controller/controlfirebase.dart';
+import '../../../data/services/peticionesSesionFirebase.dart';
+import '../../../domain/controller/control_pacientefirebase.dart';
 
 class CreateSessionPage extends StatefulWidget {
   const CreateSessionPage({super.key});
@@ -19,6 +21,8 @@ class CreateSessionPage extends StatefulWidget {
 
 var aux = 'Seleccione...';
 var identificacion = '';
+var fecha2;
+var hora2;
 var imagen =
     'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2FIdentificación%3A?alt=media&token=de2a1266-6e76-40cb-904c-7dd32eebf4cb';
 var imagen1 = '';
@@ -257,8 +261,16 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                 borderRadius: BorderRadius.circular(18.0),
                               ))),
                           onPressed: () {
-                            mensajeAlerta(context,
-                                "Su sesion ha sido agendada con exito!!!");
+                            final sesion = Sesion(
+                              idSesion: '02',
+                              idPaciente: "1065854795",
+                              idPsicologo: "7555545",
+                              fecha: fecha2,
+                              hora: hora2,
+                              notasSesion: 'asdasd',
+                              estado: 'Pendiente',
+                            );
+                            PeticionesSesion.createSesion(sesion);
                           },
                           child: const Text(
                             'Agendar',
@@ -312,7 +324,7 @@ class _CargarHoraState extends State<CargarHora> {
                   widget.hora.elementAt(index).toString(),
                   style: TextStyle(
                     color: color == index
-                        ? Color.fromARGB(255, 255, 255, 255)
+                        ? const Color.fromARGB(255, 255, 255, 255)
                         : null,
                   ),
                 ),
@@ -321,6 +333,7 @@ class _CargarHoraState extends State<CargarHora> {
                 onTap: () {
                   setState(() {
                     color = index;
+                    hora2 = widget.hora.elementAt(index);
                   });
                 },
               ),
@@ -388,6 +401,7 @@ class _CargarFechaState extends State<CargarFecha> {
                 onTap: () {
                   setState(() {
                     color = index;
+                    fecha2 = widget.listaDias.elementAt(index);
                   });
                 },
               ),
@@ -404,7 +418,7 @@ void mensajeAlerta(BuildContext context1, String texto) {
       context: context1,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Color.fromARGB(250, 6, 68, 108),
+          backgroundColor: const Color.fromARGB(250, 6, 68, 108),
           title: const Text(
             "Estado del Proceso",
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),

@@ -1,16 +1,15 @@
-// ignore_for_file: depend_on_referenced_packages, prefer_typing_uninitialized_variables
+// ignore_for_file: depend_on_referenced_packages, prefer_typing_uninitialized_variables, unused_local_variable
 
 import 'dart:io';
 
 import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import '../../../domain/controller/controlfirebase.dart';
+import '../../../domain/controller/control_pacientefirebase.dart';
 import '../../../domain/models/paciente.dart';
 
 class RegisterStepper extends StatefulWidget {

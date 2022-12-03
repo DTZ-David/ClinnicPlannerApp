@@ -1,5 +1,8 @@
-import 'dart:async';
+// ignore_for_file: unused_local_variable
 
+import 'dart:async';
+import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart';
+import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_patient/main_pagePaciente.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -174,6 +177,11 @@ class _LoginfState extends State<Loginf> {
     ConsultasControllerUser controladorUser = Get.find();
     controladorUser.consultarUsuario().then((value) => null);
 
+    ConsultasControllerPaciente controladorPaciente = Get.find();
+    controladorPaciente.consultaPaciente().then((value) => null);
+
+    ConsultasControllerSesion controladorSesion = Get.find();
+    controladorSesion.consultaSesion().then((value) => null);
     setState(() {
       controlu.iniciarSesion(controluser.text, controlpassw.text).then((value) {
         if (controlu.emailf != 'Sin Registro') {
