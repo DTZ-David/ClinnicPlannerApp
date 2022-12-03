@@ -9,11 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import '../../../data/services/peticionesUserFirebase.dart';
 import '../../../domain/controller/control_pacientefirebase.dart';
 import '../../../domain/models/paciente.dart';
+import '../../../domain/models/user.dart';
 
 class RegisterStepper extends StatefulWidget {
-  const RegisterStepper({super.key});
+  final String user;
+  final String password;
+  const RegisterStepper(this.user, this.password, {super.key});
 
   @override
   State<RegisterStepper> createState() => _RegisterStepperState();
@@ -101,6 +105,12 @@ class _RegisterStepperState extends State<RegisterStepper> {
                     telefono: controltelefono.text,
                     edad: edad1.toString(),
                     foto: '');
+                final user = User(
+                    email: widget.user,
+                    password: widget.password,
+                    rol: 'Paciente',
+                    id: controlidentificacion.text);
+                PeticionesUser.createUser(user);
                 createUser(paciente, _image);
                 controladorPaciente.consultaPaciente().then((value) => null);
                 Get.offAllNamed('/mainpage');

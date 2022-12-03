@@ -21,11 +21,8 @@ var aux = 'Seleccione...';
 var identificacion = '';
 var fecha2;
 var hora2;
-var imagen =
-    'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2FIdentificación%3A?alt=media&token=de2a1266-6e76-40cb-904c-7dd32eebf4cb';
-var imagen1 = '';
-var imagen2 = '';
-int _index = 0;
+var id;
+var _index;
 
 class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
   @override
@@ -137,14 +134,6 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                                   setState(() {
                                     aux = newValue!;
                                     _index = list.indexOf(newValue);
-                                    if (_index == 1) {
-                                      imagen =
-                                          'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2F1193231096?alt=media&token=3703123b-6cd0-4353-a64d-c4ddb92955a2';
-                                    }
-                                    if (_index == 0) {
-                                      imagen =
-                                          'https://firebasestorage.googleapis.com/v0/b/clinnicplanner-56316.appspot.com/o/Pacientes%2F1065854795?alt=media&token=4b849746-524e-4a28-b76f-7ef696cf051a';
-                                    }
                                   });
                                 },
                               );
@@ -152,83 +141,99 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                     SizedBox(
                       height: 320,
                       width: double.maxFinite,
-                      child: ListView.builder(
-                        itemCount: 1,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-                            height: 10,
-                            width: 360,
-                            child: Card(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                elevation: 5,
-                                child:
-                                    Stack(clipBehavior: Clip.none, children: [
-                                  Positioned(
-                                    top: -50,
-                                    left: 10,
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 100, top: 10),
-                                      height: 100,
-                                      width: 100,
-                                      child: Card(
-                                        clipBehavior: Clip.hardEdge,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(80)),
-                                        elevation: 2,
-                                        child: Image.network(imagen),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 100,
-                                    left: 29,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          controllerPsicologo
-                                              .getPacienteGnral![_index].nombre,
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 120,
-                                    left: 29,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          controllerPsicologo
-                                              .getPacienteGnral![_index]
-                                              .apellido,
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 160,
-                                    left: 29,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          controllerPsicologo
-                                              .getPacienteGnral![_index]
-                                              .telefono,
-                                          style: const TextStyle(fontSize: 20),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ])),
-                          );
-                        },
-                      ),
+                      child: _index == null
+                          ? const Center(
+                              child: Text('Seleccione un Psicologo'),
+                            )
+                          : ListView.builder(
+                              itemCount: 1,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                                  height: 10,
+                                  width: 360,
+                                  child: Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      elevation: 5,
+                                      child: Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Positioned(
+                                              top: -50,
+                                              left: 10,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 100, top: 10),
+                                                height: 100,
+                                                width: 100,
+                                                child: Card(
+                                                  clipBehavior: Clip.hardEdge,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              80)),
+                                                  elevation: 2,
+                                                  child: Image.network(
+                                                      'https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png'),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 100,
+                                              left: 29,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    controllerPsicologo
+                                                        .getPacienteGnral![
+                                                            _index]
+                                                        .nombre,
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 120,
+                                              left: 29,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    controllerPsicologo
+                                                        .getPacienteGnral![
+                                                            _index]
+                                                        .apellido,
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 160,
+                                              left: 29,
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    controllerPsicologo
+                                                        .getPacienteGnral![
+                                                            _index]
+                                                        .telefono,
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ])),
+                                );
+                              },
+                            ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 20, top: 0),
@@ -269,6 +274,8 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                               estado: 'Pendiente',
                             );
                             PeticionesSesion.createSesion(sesion);
+                            mensajeAlerta(
+                                context, 'Su sesion se agendo correctamente');
                           },
                           child: const Text(
                             'Agendar',

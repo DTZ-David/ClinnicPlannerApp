@@ -1,3 +1,4 @@
+import 'package:clinnic_planner/ui/pages/register_pages/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -148,12 +149,11 @@ class _RegistroState extends State<Registro> {
               .registrarEmail(controluser.text, controlpassw.text)
               .then((value) {
             if (controlu.emailf != 'Sin Registro') {
-              final user = User(
-                  email: controluser.text,
-                  password: controlpassw.text,
-                  rol: 'Paciente');
-              PeticionesUser.createUser(user);
-              Get.offAllNamed('/registro');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RegisterStepper(
+                          controluser.text, controlpassw.text)));
             } else {
               Get.showSnackbar(const GetSnackBar(
                 title: 'Validacion de Usuarios',
