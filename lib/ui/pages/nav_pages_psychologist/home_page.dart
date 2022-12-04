@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               radius: 4),
                           tabs: const [
                             Tab(
-                              text: 'Inicio',
+                              text: 'Inicio Psicologo',
                             ),
                             Tab(
                               text: 'Historial',
@@ -216,57 +216,62 @@ class CargarCards extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 30, 10, 10),
                 height: 260,
                 width: 300,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    elevation: 5,
-                    child: Stack(clipBehavior: Clip.none, children: [
-                      Positioned(
-                        top: -50,
-                        left: -50,
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 100, top: 10),
-                          height: 100,
-                          width: 100,
-                          child: Card(
-                            clipBehavior: Clip.hardEdge,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80)),
-                            elevation: 2,
-                            child: Image.asset(
-                                'assets/images/${images.keys.elementAt(index)}'),
+                child: GestureDetector(
+                  onLongPress: () {
+                    mensajeAlerta(context, "prueba");
+                  },
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      elevation: 5,
+                      child: Stack(clipBehavior: Clip.none, children: [
+                        Positioned(
+                          top: -50,
+                          left: -50,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 100, top: 10),
+                            height: 100,
+                            width: 100,
+                            child: Card(
+                              clipBehavior: Clip.hardEdge,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(80)),
+                              elevation: 2,
+                              child: Image.asset(
+                                  'assets/images/${images.keys.elementAt(index)}'),
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: 20,
-                        right: 35,
-                        child: Column(
-                          children: [
-                            Text(
-                              hora.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            Text(
-                              nombres.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
-                            )
-                          ],
+                        Positioned(
+                          top: 20,
+                          right: 35,
+                          child: Column(
+                            children: [
+                              Text(
+                                hora.elementAt(index),
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              Text(
+                                nombres.elementAt(index),
+                                style: const TextStyle(fontSize: 20),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        top: 100,
-                        left: 29,
-                        child: Column(
-                          children: [
-                            Text(
-                              notas.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ],
+                        Positioned(
+                          top: 100,
+                          left: 29,
+                          child: Column(
+                            children: [
+                              Text(
+                                notas.elementAt(index),
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ])),
+                      ])),
+                ),
               );
             },
           );
@@ -298,4 +303,31 @@ class _CirclePainter extends BoxPainter {
         configuration.size!.height - radius);
     canvas.drawCircle(offset + circleOffset, radius, paint);
   }
+}
+
+void mensajeAlerta(BuildContext context1, String texto) {
+  var mensaje = texto;
+  showDialog(
+      barrierColor: const Color.fromARGB(175, 104, 104, 103),
+      context: context1,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(250, 6, 68, 108),
+          title: const Text(
+            "Estado del Proceso",
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+          content: Text(
+            mensaje,
+            style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.check, color: Colors.green))
+          ],
+        );
+      });
 }
