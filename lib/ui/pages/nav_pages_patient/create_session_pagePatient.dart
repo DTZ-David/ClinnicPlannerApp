@@ -21,6 +21,7 @@ class CreateSessionPacientePage extends StatefulWidget {
 var aux = 'Seleccione...';
 var identificacion = '';
 var fecha2;
+var imagen = '';
 var hora2;
 var id;
 var idPaciente;
@@ -159,6 +160,8 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                                     idPsicologo = controllerPsicologo
                                         .getPacienteGnral![_index]
                                         .identificacion;
+                                    imagen = controllerPsicologo
+                                        .getPacienteGnral![_index].foto;
                                   });
                                 },
                               );
@@ -202,8 +205,7 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                                                           BorderRadius.circular(
                                                               80)),
                                                   elevation: 2,
-                                                  child: Image.network(
-                                                      'https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png'),
+                                                  child: Image.network(imagen),
                                                 ),
                                               ),
                                             ),
