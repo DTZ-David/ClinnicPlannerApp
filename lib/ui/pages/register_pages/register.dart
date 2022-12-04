@@ -345,6 +345,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
         .doc(paciente.identificacion);
 
     final json = paciente.toJson();
+    json['foto'] = url.toString();
     await docUser.set(json);
   }
 }
