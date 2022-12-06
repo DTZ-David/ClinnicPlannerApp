@@ -18,7 +18,7 @@ class MainPagePaciente extends StatefulWidget {
 
 class _MainPagePacienteState extends State<MainPagePaciente> {
   List pages = [
-    HomePagePaciente(id),
+    HomePagePaciente("10658544795"),
     const CreateSessionPacientePage(),
     const AgendaPage(),
     const SettingsPage(),

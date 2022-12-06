@@ -231,172 +231,175 @@ class _CargarCardsState extends State<CargarCards> {
             //scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                padding: const EdgeInsets.fromLTRB(20, 30, 10, 10),
-                height: 260,
-                width: 300,
-                child: GestureDetector(
-                  onLongPress: () {
-                    //editarCard(context, "Notas...");
-                    showDialog(
-                        barrierColor: const Color.fromARGB(175, 104, 104, 103),
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SingleChildScrollView(
-                            child: AlertDialog(
-                              backgroundColor: Colors.white,
-                              title: const Text(
-                                "Editar Sesión",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0)),
-                              ),
-                              content: Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(10),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 70, vertical: 10),
-                                    child: TextField(
-                                      onChanged: (value) {},
-                                      controller: controladorNotas,
-                                      decoration: InputDecoration(
-                                          hintText: "Notas de la Sesión",
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              borderSide: const BorderSide(
-                                                  width: 1,
-                                                  color: Color.fromARGB(
-                                                      255, 36, 0, 167)))),
-                                      style: TextStyle(
-                                          color: Color.fromARGB(255, 0, 0, 0)),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 200,
-                                    child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.fromLTRB(20, 30, 10, 10),
+                  height: 260,
+                  width: 300,
+                  child: GestureDetector(
+                    onLongPress: () {
+                      //editarCard(context, "Notas...");
+                      showDialog(
+                          barrierColor:
+                              const Color.fromARGB(175, 104, 104, 103),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SingleChildScrollView(
+                              child: AlertDialog(
+                                backgroundColor: Colors.white,
+                                title: const Text(
+                                  "Editar Sesión",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                ),
+                                content: Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.all(10),
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 70, vertical: 10),
-                                      child: DropdownButtonFormField<String>(
+                                      child: TextField(
+                                        onChanged: (value) {},
+                                        controller: controladorNotas,
                                         decoration: InputDecoration(
-                                            hintText: "Estado de laSesión",
+                                            hintText: "Notas de la Sesión",
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 borderSide: const BorderSide(
                                                     width: 1,
-                                                    color: Colors.black))),
-                                        value: selectedItem,
-                                        dropdownColor:
-                                            Color.fromARGB(255, 30, 17, 211),
-                                        isExpanded: true,
-                                        items: <String>[
-                                          "Seleccione",
-                                          "Finalizado",
-                                          "Cancelado",
-                                        ].map((String items) {
-                                          return DropdownMenuItem(
-                                            value: items,
-                                            child: Text(items),
-                                          );
-                                        }).toList(),
-                                        icon: Icon(Icons.arrow_back_ios_new),
-                                        elevation: 4,
-                                        // underline: Container(
-                                        // height: 2,
-                                        //color:
-                                        //  Color.fromARGB(255, 119, 94, 137),
-                                        //  ),
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            selectedItem = newValue!;
-                                          });
-                                        },
+                                                    color: Color.fromARGB(
+                                                        255, 36, 0, 167)))),
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
                                       ),
                                     ),
-                                  )
+                                    Positioned(
+                                      top: 200,
+                                      child: Container(
+                                        margin: const EdgeInsets.all(10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 70, vertical: 10),
+                                        child: DropdownButtonFormField<String>(
+                                          decoration: InputDecoration(
+                                              hintText: "Estado de laSesión",
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: const BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black))),
+                                          value: selectedItem,
+                                          dropdownColor: const Color.fromARGB(
+                                              255, 30, 17, 211),
+                                          isExpanded: true,
+                                          items: <String>[
+                                            "Seleccione",
+                                            "Finalizado",
+                                            "Cancelado",
+                                          ].map((String items) {
+                                            return DropdownMenuItem(
+                                              value: items,
+                                              child: Text(items),
+                                            );
+                                          }).toList(),
+                                          icon: const Icon(
+                                              Icons.arrow_back_ios_new),
+                                          elevation: 4,
+                                          // underline: Container(
+                                          // height: 2,
+                                          //color:
+                                          //  Color.fromARGB(255, 119, 94, 137),
+                                          //  ),
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              selectedItem = newValue!;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                actions: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(Icons.cancel,
+                                          color: Colors.redAccent)),
+                                  IconButton(
+                                      onPressed: () {
+                                        PeticionesSesion.actualizarNotas(
+                                            "2", controladorNotas.text);
+
+                                        //if!(selectedItem == "Seleccione"){
+                                        PeticionesSesion.actualizarEstado(
+                                            controlSesion
+                                                .getSesionGnral![index].idSesion
+                                                .toString(),
+                                            selectedItem.toString());
+                                        // }
+                                        Navigator.of(context).pop();
+                                      },
+                                      icon: const Icon(Icons.check,
+                                          color: Colors.green)),
                                 ],
                               ),
-                              actions: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    icon: const Icon(Icons.cancel,
-                                        color: Colors.redAccent)),
-                                IconButton(
-                                    onPressed: () {
-                                      PeticionesSesion.actualizarNotas(
-                                          "2", controladorNotas.text);
-
-                                      //if!(selectedItem == "Seleccione"){
-                                      PeticionesSesion.actualizarEstado(
-                                          controlSesion
-                                              .getSesionGnral![index].idSesion
-                                              .toString(),
-                                          selectedItem.toString());
-                                      // }
-                                      Navigator.of(context).pop();
-                                    },
-                                    icon: const Icon(Icons.check,
-                                        color: Colors.green)),
+                            );
+                          });
+                    },
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        elevation: 5,
+                        child: Stack(clipBehavior: Clip.none, children: [
+                          Positioned(
+                            top: -50,
+                            left: -50,
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 100, top: 10),
+                              height: 100,
+                              width: 100,
+                              child: Card(
+                                clipBehavior: Clip.hardEdge,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(80)),
+                                elevation: 2,
+                                child: Image.asset(
+                                    'assets/images/${widget.images.keys.elementAt(index)}'),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 20,
+                            right: 35,
+                            child: Column(
+                              children: [
+                                Text(
+                                  hora.elementAt(index),
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  nombres.elementAt(index),
+                                  style: const TextStyle(fontSize: 20),
+                                )
                               ],
                             ),
-                          );
-                        });
-                  },
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    elevation: 5,
-                    child: Stack(clipBehavior: Clip.none, children: [
-                      Positioned(
-                        top: -50,
-                        left: -50,
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 100, top: 10),
-                          height: 100,
-                          width: 100,
-                          child: Card(
-                            clipBehavior: Clip.hardEdge,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80)),
-                            elevation: 2,
-                            child: Image.asset(
-                                'assets/images/${widget.images.keys.elementAt(index)}'),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 20,
-                        right: 35,
-                        child: Column(
-                          children: [
-                            Text(
-                              hora.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
+                          Positioned(
+                            top: 100,
+                            left: 29,
+                            child: Column(
+                              children: [
+                                Text(
+                                  notas.elementAt(index),
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ],
                             ),
-                            Text(
-                              nombres.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
-                            )
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 100,
-                        left: 29,
-                        child: Column(
-                          children: [
-                            Text(
-                              notas.elementAt(index),
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ])),
-              );
+                          ),
+                        ])),
+                  ));
             },
           );
   }

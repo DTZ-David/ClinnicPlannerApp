@@ -1,4 +1,3 @@
-import 'package:clinnic_planner/ui/pages/nav_pages_patient/main_pagePaciente.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/main_page.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/perfil_edit.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/settings_page.dart';

@@ -1,8 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:async';
-
-import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
 import 'package:clinnic_planner/data/services/peticionesSesionFirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
@@ -247,8 +245,8 @@ class _CargarCardsState extends State<CargarCards> {
                               content: Column(
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.all(10),
-                                    padding: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 70, vertical: 10),
                                     child: TextField(
                                       onChanged: (value) {},
@@ -262,15 +260,15 @@ class _CargarCardsState extends State<CargarCards> {
                                                   width: 1,
                                                   color: Color.fromARGB(
                                                       255, 36, 0, 167)))),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Color.fromARGB(255, 0, 0, 0)),
                                     ),
                                   ),
                                   Positioned(
                                     top: 200,
                                     child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      padding: EdgeInsets.symmetric(
+                                      margin: const EdgeInsets.all(10),
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 70, vertical: 10),
                                       child: DropdownButtonFormField<String>(
                                         decoration: InputDecoration(
@@ -282,8 +280,8 @@ class _CargarCardsState extends State<CargarCards> {
                                                     width: 1,
                                                     color: Colors.black))),
                                         value: selectedItem,
-                                        dropdownColor:
-                                            Color.fromARGB(255, 30, 17, 211),
+                                        dropdownColor: const Color.fromARGB(
+                                            255, 30, 17, 211),
                                         isExpanded: true,
                                         items: <String>[
                                           "Seleccione",
@@ -295,7 +293,8 @@ class _CargarCardsState extends State<CargarCards> {
                                             child: Text(items),
                                           );
                                         }).toList(),
-                                        icon: Icon(Icons.arrow_back_ios_new),
+                                        icon: const Icon(
+                                            Icons.arrow_back_ios_new),
                                         elevation: 4,
                                         // underline: Container(
                                         // height: 2,
@@ -443,20 +442,23 @@ void editarCard(BuildContext context1, String texto) {
           content: Column(
             children: [
               Container(
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                margin: const EdgeInsets.all(20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
                 child: TextField(
                   onChanged: (value) {},
                   controller: controladorNotas,
                   decoration: InputDecoration(hintText: texto),
-                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255)),
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                margin: const EdgeInsets.all(20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
                 child: DropdownButton(
-                  dropdownColor: Color.fromARGB(255, 255, 207, 188),
+                  dropdownColor: const Color.fromARGB(255, 255, 207, 188),
                   isExpanded: true,
                   items: <String>[
                     "Tipo Del Animal",
@@ -469,11 +471,11 @@ void editarCard(BuildContext context1, String texto) {
                     );
                   }).toList(),
                   value: dropvalue,
-                  icon: Icon(Icons.arrow_back_ios_new),
+                  icon: const Icon(Icons.arrow_back_ios_new),
                   elevation: 4,
                   underline: Container(
                     height: 2,
-                    color: Color.fromARGB(255, 119, 94, 137),
+                    color: const Color.fromARGB(255, 119, 94, 137),
                   ),
                   onChanged: (Object? value) {},
                 ),
@@ -502,10 +504,10 @@ void editarCard(BuildContext context1, String texto) {
 Widget comboEstados() {
   var dropvalue;
   return Container(
-    margin: EdgeInsets.all(20),
-    padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+    margin: const EdgeInsets.all(20),
+    padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
     child: DropdownButton(
-      dropdownColor: Color.fromARGB(255, 255, 207, 188),
+      dropdownColor: const Color.fromARGB(255, 255, 207, 188),
       isExpanded: true,
       items: <String>[
         "Tipo Del Animal",
@@ -518,11 +520,11 @@ Widget comboEstados() {
         );
       }).toList(),
       value: dropvalue,
-      icon: Icon(Icons.arrow_back_ios_new),
+      icon: const Icon(Icons.arrow_back_ios_new),
       elevation: 4,
       underline: Container(
         height: 2,
-        color: Color.fromARGB(255, 119, 94, 137),
+        color: const Color.fromARGB(255, 119, 94, 137),
       ),
       onChanged: (Object? value) {},
     ),

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:async';
 import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart';
@@ -210,8 +210,7 @@ class _LoginfState extends State<Loginf> {
                           duration: const Duration(seconds: 1));
                     } else {
                       id2 = controladorUser.getUserGeneral![i].id;
-
-                      Get.to(() => MainPagePaciente(id2),
+                      Get.to(() => MainPagePaciente("1065854795"),
                           transition: Transition.cupertino,
                           duration: const Duration(seconds: 1));
                     }
