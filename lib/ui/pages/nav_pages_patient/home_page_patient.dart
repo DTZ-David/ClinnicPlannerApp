@@ -252,36 +252,15 @@ class _CargarCardsState extends State<CargarCards> {
                                 ),
                                 content: Column(
                                   children: [
-                                    Container(
-                                      margin: const EdgeInsets.all(10),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 70, vertical: 10),
-                                      child: TextField(
-                                        onChanged: (value) {},
-                                        controller: controladorNotas,
-                                        decoration: InputDecoration(
-                                            hintText: "Notas de la Sesión",
-                                            enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: const BorderSide(
-                                                    width: 1,
-                                                    color: Color.fromARGB(
-                                                        255, 36, 0, 167)))),
-                                        style: const TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                    ),
                                     Positioned(
                                       top: 200,
                                       child: Container(
                                         margin: const EdgeInsets.all(10),
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 70, vertical: 10),
+                                            horizontal: 20, vertical: 50),
                                         child: DropdownButtonFormField<String>(
                                           decoration: InputDecoration(
-                                              hintText: "Estado de laSesión",
+                                              hintText: "Estado de la Sesión",
                                               enabledBorder: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
@@ -289,8 +268,8 @@ class _CargarCardsState extends State<CargarCards> {
                                                       width: 1,
                                                       color: Colors.black))),
                                           value: selectedItem,
-                                          dropdownColor: const Color.fromARGB(
-                                              255, 30, 17, 211),
+                                          dropdownColor: Color.fromARGB(
+                                              255, 255, 255, 255),
                                           isExpanded: true,
                                           items: <String>[
                                             "Seleccione",
@@ -329,15 +308,9 @@ class _CargarCardsState extends State<CargarCards> {
                                           color: Colors.redAccent)),
                                   IconButton(
                                       onPressed: () {
-                                        PeticionesSesion.actualizarNotas(
-                                            "2", controladorNotas.text);
-
-                                        //if!(selectedItem == "Seleccione"){
+                                        //if!(selectedItem.toString() == "Seleccione"){
                                         PeticionesSesion.actualizarEstado(
-                                            controlSesion
-                                                .getSesionGnral![index].idSesion
-                                                .toString(),
-                                            selectedItem.toString());
+                                            "2", selectedItem.toString());
                                         // }
                                         Navigator.of(context).pop();
                                       },

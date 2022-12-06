@@ -247,7 +247,7 @@ class _CargarCardsState extends State<CargarCards> {
                                   Container(
                                     margin: const EdgeInsets.all(10),
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 70, vertical: 10),
+                                        horizontal: 20, vertical: 50),
                                     child: TextField(
                                       onChanged: (value) {},
                                       controller: controladorNotas,
@@ -269,20 +269,22 @@ class _CargarCardsState extends State<CargarCards> {
                                     child: Container(
                                       margin: const EdgeInsets.all(10),
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 70, vertical: 10),
+                                          horizontal: 20, vertical: 50),
                                       child: DropdownButtonFormField<String>(
                                         decoration: InputDecoration(
-                                            hintText: "Estado de laSesión",
+                                            hintText: "Estado de la Sesión",
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                                 borderSide: const BorderSide(
                                                     width: 1,
-                                                    color: Colors.black))),
+                                                    color: Color.fromARGB(
+                                                        255, 36, 0, 167)))),
                                         value: selectedItem,
-                                        dropdownColor: const Color.fromARGB(
-                                            255, 30, 17, 211),
+                                        dropdownColor:
+                                            Color.fromARGB(255, 255, 255, 255),
                                         isExpanded: true,
+
                                         items: <String>[
                                           "Seleccione",
                                           "Finalizado",
@@ -325,10 +327,7 @@ class _CargarCardsState extends State<CargarCards> {
 
                                       //if!(selectedItem == "Seleccione"){
                                       PeticionesSesion.actualizarEstado(
-                                          controlSesion
-                                              .getSesionGnral![index].idSesion
-                                              .toString(),
-                                          selectedItem.toString());
+                                          "2", selectedItem.toString());
                                       // }
                                       Navigator.of(context).pop();
                                     },
@@ -422,111 +421,4 @@ class _CirclePainter extends BoxPainter {
         configuration.size!.height - radius);
     canvas.drawCircle(offset + circleOffset, radius, paint);
   }
-}
-
-void editarCard(BuildContext context1, String texto) {
-  TextEditingController controladorNotas = TextEditingController();
-  ConsultasControllerSesion controlSesion = ConsultasControllerSesion();
-  var mensaje = texto;
-  var dropvalue = null;
-  showDialog(
-      barrierColor: const Color.fromARGB(175, 104, 104, 103),
-      context: context1,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color.fromARGB(250, 6, 68, 108),
-          title: const Text(
-            "Editar Notas de Sesión",
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-          ),
-          content: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
-                child: TextField(
-                  onChanged: (value) {},
-                  controller: controladorNotas,
-                  decoration: InputDecoration(hintText: texto),
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255)),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
-                child: DropdownButton(
-                  dropdownColor: const Color.fromARGB(255, 255, 207, 188),
-                  isExpanded: true,
-                  items: <String>[
-                    "Tipo Del Animal",
-                    "Perro",
-                    "Gato",
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  value: dropvalue,
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                  elevation: 4,
-                  underline: Container(
-                    height: 2,
-                    color: const Color.fromARGB(255, 119, 94, 137),
-                  ),
-                  onChanged: (Object? value) {},
-                ),
-              )
-            ],
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.cancel, color: Colors.redAccent)),
-            IconButton(
-                onPressed: () {
-                  PeticionesSesion.actualizarNotas("2",
-                      controladorNotas.text); //Poner el id con el controller
-
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.check, color: Colors.green)),
-          ],
-        );
-      });
-}
-
-Widget comboEstados() {
-  var dropvalue;
-  return Container(
-    margin: const EdgeInsets.all(20),
-    padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
-    child: DropdownButton(
-      dropdownColor: const Color.fromARGB(255, 255, 207, 188),
-      isExpanded: true,
-      items: <String>[
-        "Tipo Del Animal",
-        "Perro",
-        "Gato",
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-      value: dropvalue,
-      icon: const Icon(Icons.arrow_back_ios_new),
-      elevation: 4,
-      underline: Container(
-        height: 2,
-        color: const Color.fromARGB(255, 119, 94, 137),
-      ),
-      onChanged: (Object? value) {},
-    ),
-  );
 }
