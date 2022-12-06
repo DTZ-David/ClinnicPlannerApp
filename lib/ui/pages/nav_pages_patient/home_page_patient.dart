@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePagePaciente extends StatefulWidget {
-  const HomePagePaciente({super.key});
+  String id;
+  HomePagePaciente(this.id, {super.key});
 
   @override
   State<HomePagePaciente> createState() => _HomePagePacienteState();
@@ -33,6 +34,9 @@ class _HomePagePacienteState extends State<HomePagePaciente>
 
   @override
   Widget build(BuildContext context) {
+    print(
+        '-------------------------------------44444444444-------------------------');
+    print(widget.id);
     nombres = [];
     hora = [];
     notas = [];

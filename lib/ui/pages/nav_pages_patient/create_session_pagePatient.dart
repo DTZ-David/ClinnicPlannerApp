@@ -399,7 +399,7 @@ class _CargarFechaState extends State<CargarFecha> {
       height: 80,
       margin: const EdgeInsets.only(left: 20),
       child: ListView.builder(
-          itemCount: 6,
+          itemCount: widget.listFechas.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
             return Container(

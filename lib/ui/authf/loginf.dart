@@ -174,6 +174,7 @@ class _LoginfState extends State<Loginf> {
   }
 
   _login(BuildContext context) {
+    var id2;
     ConsultasControllerUser controladorUser = Get.find();
     controladorUser.consultarUsuario().then((value) => null);
 
@@ -208,7 +209,9 @@ class _LoginfState extends State<Loginf> {
                           transition: Transition.cupertino,
                           duration: const Duration(seconds: 1));
                     } else {
-                      Get.to(() => const MainPagePaciente(),
+                      id2 = controladorUser.getUserGeneral![i].id;
+
+                      Get.to(() => MainPagePaciente(id2),
                           transition: Transition.cupertino,
                           duration: const Duration(seconds: 1));
                     }

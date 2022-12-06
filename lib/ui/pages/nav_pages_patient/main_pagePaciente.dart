@@ -9,7 +9,8 @@ import '../nav_pages_psychologist/perfil_edit.dart';
 import '../nav_pages_psychologist/settings_page.dart';
 
 class MainPagePaciente extends StatefulWidget {
-  const MainPagePaciente({super.key});
+  String id;
+  MainPagePaciente(this.id, {super.key});
 
   @override
   State<MainPagePaciente> createState() => _MainPagePacienteState();
@@ -17,7 +18,7 @@ class MainPagePaciente extends StatefulWidget {
 
 class _MainPagePacienteState extends State<MainPagePaciente> {
   List pages = [
-    const HomePagePaciente(),
+    HomePagePaciente(id),
     const CreateSessionPacientePage(),
     const AgendaPage(),
     const SettingsPage(),

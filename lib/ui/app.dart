@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         '/registroLog': (context) => const Registro(),
         '/editprofilepage': (context) => const EditProfilePage(),
         '/mainpage': (context) => const MainPage(),
-        '/mainpagepaciente': (context) => const MainPagePaciente(),
+        //'/mainpagepaciente': (context) => const MainPagePaciente(),
         '/settingspage': (context) => const SettingsPage()
       },
       home: const HomeL(),

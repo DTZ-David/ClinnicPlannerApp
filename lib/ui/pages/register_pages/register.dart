@@ -265,6 +265,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
                     firstDate: DateTime(1900),
                     lastDate: DateTime.now(),
                   );
+
                   if (pickeddate != null) {
                     setState(() {
                       controlfechanacimiento.text =
