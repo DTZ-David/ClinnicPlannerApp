@@ -28,4 +28,24 @@ class PeticionesSesion {
 
     return lista;
   }
+
+  static Future<void> actualizarNotas(String id, String notas) async {
+    await _db
+        .collection('Sesiones')
+        .doc(id)
+        .update({'notasSesion': notas}).catchError((e) {
+      log(e);
+    });
+    //return true;
+  }
+
+  static Future<void> actualizarEstado(String id, String estado) async {
+    await _db
+        .collection('Sesiones')
+        .doc(id)
+        .update({'estado': estado}).catchError((e) {
+      log(e);
+    });
+    //return true;
+  }
 }

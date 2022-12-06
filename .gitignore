@@ -45,3 +45,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+lib/ui/pages/nav_pages_patient/home_page_patient.dart

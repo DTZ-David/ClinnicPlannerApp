@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:clinnic_planner/data/services/peticionesPacienteFirebase.dart';
+import 'package:clinnic_planner/data/services/peticionesSesionFirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart';
 import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
 import 'package:flutter/material.dart';
@@ -196,12 +198,23 @@ class CargarCards2 extends StatelessWidget {
   }
 }
 
-class CargarCards extends StatelessWidget {
+class CargarCards extends StatefulWidget {
   const CargarCards({
     Key? key,
     required this.images,
   }) : super(key: key);
   final Map<String, String> images;
+
+  @override
+  State<CargarCards> createState() => _CargarCardsState();
+}
+
+class _CargarCardsState extends State<CargarCards> {
+  TextEditingController controladorNotas = TextEditingController();
+  ConsultasControllerSesion controlSesion = ConsultasControllerSesion();
+  var selectedItem = null;
+  var idSesion;
+
   @override
   Widget build(BuildContext context) {
     return nombres.isEmpty
@@ -218,7 +231,114 @@ class CargarCards extends StatelessWidget {
                 width: 300,
                 child: GestureDetector(
                   onLongPress: () {
-                    mensajeAlerta(context, "prueba");
+                    //editarCard(context, "Notas...");
+                    showDialog(
+                        barrierColor: const Color.fromARGB(175, 104, 104, 103),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SingleChildScrollView(
+                            child: AlertDialog(
+                              backgroundColor: Colors.white,
+                              title: const Text(
+                                "Editar Sesión",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                              ),
+                              content: Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.all(10),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 70, vertical: 10),
+                                    child: TextField(
+                                      onChanged: (value) {},
+                                      controller: controladorNotas,
+                                      decoration: InputDecoration(
+                                          hintText: "Notas de la Sesión",
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: const BorderSide(
+                                                  width: 1,
+                                                  color: Color.fromARGB(
+                                                      255, 36, 0, 167)))),
+                                      style: TextStyle(
+                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 200,
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 70, vertical: 10),
+                                      child: DropdownButtonFormField<String>(
+                                        decoration: InputDecoration(
+                                            hintText: "Estado de laSesión",
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                borderSide: const BorderSide(
+                                                    width: 1,
+                                                    color: Colors.black))),
+                                        value: selectedItem,
+                                        dropdownColor:
+                                            Color.fromARGB(255, 30, 17, 211),
+                                        isExpanded: true,
+                                        items: <String>[
+                                          "Seleccione",
+                                          "Finalizado",
+                                          "Cancelado",
+                                        ].map((String items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        icon: Icon(Icons.arrow_back_ios_new),
+                                        elevation: 4,
+                                        // underline: Container(
+                                        // height: 2,
+                                        //color:
+                                        //  Color.fromARGB(255, 119, 94, 137),
+                                        //  ),
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            selectedItem = newValue!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              actions: [
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    icon: const Icon(Icons.cancel,
+                                        color: Colors.redAccent)),
+                                IconButton(
+                                    onPressed: () {
+                                      PeticionesSesion.actualizarNotas(
+                                          "2", controladorNotas.text);
+
+                                      //if!(selectedItem == "Seleccione"){
+                                      PeticionesSesion.actualizarEstado(
+                                          controlSesion
+                                              .getSesionGnral![index].idSesion
+                                              .toString(),
+                                          selectedItem.toString());
+                                      // }
+                                      Navigator.of(context).pop();
+                                    },
+                                    icon: const Icon(Icons.check,
+                                        color: Colors.green)),
+                              ],
+                            ),
+                          );
+                        });
                   },
                   child: Card(
                       shape: RoundedRectangleBorder(
@@ -238,7 +358,7 @@ class CargarCards extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(80)),
                               elevation: 2,
                               child: Image.asset(
-                                  'assets/images/${images.keys.elementAt(index)}'),
+                                  'assets/images/${widget.images.keys.elementAt(index)}'),
                             ),
                           ),
                         ),
@@ -305,8 +425,11 @@ class _CirclePainter extends BoxPainter {
   }
 }
 
-void mensajeAlerta(BuildContext context1, String texto) {
+void editarCard(BuildContext context1, String texto) {
+  TextEditingController controladorNotas = TextEditingController();
+  ConsultasControllerSesion controlSesion = ConsultasControllerSesion();
   var mensaje = texto;
+  var dropvalue = null;
   showDialog(
       barrierColor: const Color.fromARGB(175, 104, 104, 103),
       context: context1,
@@ -314,20 +437,94 @@ void mensajeAlerta(BuildContext context1, String texto) {
         return AlertDialog(
           backgroundColor: const Color.fromARGB(250, 6, 68, 108),
           title: const Text(
-            "Estado del Proceso",
+            "Editar Notas de Sesión",
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           ),
-          content: Text(
-            mensaje,
-            style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+          content: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                child: TextField(
+                  onChanged: (value) {},
+                  controller: controladorNotas,
+                  decoration: InputDecoration(hintText: texto),
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                child: DropdownButton(
+                  dropdownColor: Color.fromARGB(255, 255, 207, 188),
+                  isExpanded: true,
+                  items: <String>[
+                    "Tipo Del Animal",
+                    "Perro",
+                    "Gato",
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  value: dropvalue,
+                  icon: Icon(Icons.arrow_back_ios_new),
+                  elevation: 4,
+                  underline: Container(
+                    height: 2,
+                    color: Color.fromARGB(255, 119, 94, 137),
+                  ),
+                  onChanged: (Object? value) {},
+                ),
+              )
+            ],
           ),
           actions: [
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: const Icon(Icons.check, color: Colors.green))
+                icon: const Icon(Icons.cancel, color: Colors.redAccent)),
+            IconButton(
+                onPressed: () {
+                  PeticionesSesion.actualizarNotas("2",
+                      controladorNotas.text); //Poner el id con el controller
+
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.check, color: Colors.green)),
           ],
         );
       });
+}
+
+Widget comboEstados() {
+  var dropvalue;
+  return Container(
+    margin: EdgeInsets.all(20),
+    padding: EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+    child: DropdownButton(
+      dropdownColor: Color.fromARGB(255, 255, 207, 188),
+      isExpanded: true,
+      items: <String>[
+        "Tipo Del Animal",
+        "Perro",
+        "Gato",
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      value: dropvalue,
+      icon: Icon(Icons.arrow_back_ios_new),
+      elevation: 4,
+      underline: Container(
+        height: 2,
+        color: Color.fromARGB(255, 119, 94, 137),
+      ),
+      onChanged: (Object? value) {},
+    ),
+  );
 }
