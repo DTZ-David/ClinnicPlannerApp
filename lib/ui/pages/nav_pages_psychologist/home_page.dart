@@ -120,8 +120,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ]),
               )
-            : const Center(
-                child: Text('...No hay sesiones en el historial...'))));
+            : Center(
+                child: Column(
+                children: [
+                  Image.asset('assets/images/cerebrotriste.png'),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'No hay sesiones registradas',
+                    style: TextStyle(fontSize: 20, fontFamily: 'RobotoSlab'),
+                  )
+                ],
+              ))));
   }
 }
 
