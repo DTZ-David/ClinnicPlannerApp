@@ -68,60 +68,60 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
     TabController tabController = TabController(length: 2, vsync: this);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text(
-          'Clinnic Planner',
-          style: TextStyle(
-              fontFamily: 'RobotoSlab', fontSize: 20, color: Colors.black),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: const Text(
+            'Clinnic Planner',
+            style: TextStyle(
+                fontFamily: 'RobotoSlab', fontSize: 20, color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
         ),
-        backgroundColor: Colors.white,
-      ),
-      body: Obx(() => controladorSesion.getSesionGnral?.isEmpty == false
-          ? SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    Align(
-                      alignment: Alignment.center,
-                      child: TabBar(
-                          labelPadding:
-                              const EdgeInsets.only(left: 20, right: 20),
-                          labelColor: Colors.black,
-                          controller: tabController,
-                          unselectedLabelColor: Colors.grey,
-                          isScrollable: true,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicator: CircleTabIndicator(
-                              color: const Color.fromARGB(150, 6, 68, 108),
-                              radius: 4),
-                          tabs: const [
-                            Tab(
-                              text: 'Inicio Psicologo',
-                            ),
-                            Tab(
-                              text: 'Historial',
-                            )
-                          ]),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 560,
-                      width: double.maxFinite,
-                      child: TabBarView(
-                        controller: tabController,
-                        children: const [
-                          CargarCards(),
-                          CargarCards2(),
-                        ],
+        body: Obx(() => controladorSesion.getSesionGnral?.isEmpty == false
+            ? SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.center,
+                        child: TabBar(
+                            labelPadding:
+                                const EdgeInsets.only(left: 20, right: 20),
+                            labelColor: Colors.black,
+                            controller: tabController,
+                            unselectedLabelColor: Colors.grey,
+                            isScrollable: true,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicator: CircleTabIndicator(
+                                color: const Color.fromARGB(150, 6, 68, 108),
+                                radius: 4),
+                            tabs: const [
+                              Tab(
+                                text: 'Inicio Psicologo',
+                              ),
+                              Tab(
+                                text: 'Historial',
+                              )
+                            ]),
                       ),
-                    ),
-                  ]),
-            )
-          : const Center(child: Icon(Icons.charging_station))),
-    );
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 560,
+                        width: double.maxFinite,
+                        child: TabBarView(
+                          controller: tabController,
+                          children: const [
+                            CargarCards(),
+                            CargarCards2(),
+                          ],
+                        ),
+                      ),
+                    ]),
+              )
+            : const Center(
+                child: Text('...No hay sesiones en el historial...'))));
   }
 }
 

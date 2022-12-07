@@ -2,7 +2,7 @@ class Sesion {
   final String idSesion;
   final String idPaciente;
   final String idPsicologo;
-  final String fecha;
+  final DateTime fecha;
   final String hora;
   final String notasSesion;
   final String estado;

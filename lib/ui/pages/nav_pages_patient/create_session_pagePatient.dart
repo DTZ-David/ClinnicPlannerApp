@@ -295,7 +295,7 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                               idSesion: id.toString(),
                               idPaciente: "1065854795",
                               idPsicologo: idPsicologo,
-                              fecha: listaFechasN[aux2],
+                              fecha: DateTime.parse(listaFechasN[aux2]),
                               hora: hora2,
                               notasSesion: '',
                               estado: 'Pendiente',
