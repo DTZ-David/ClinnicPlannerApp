@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     List pages = [
       HomePage(id: widget.id),
-      const CreateSessionPage(),
+      CreateSessionPage(id: widget.id),
       const AgendaPage(),
       const SettingsPage(),
       const EditProfilePage()

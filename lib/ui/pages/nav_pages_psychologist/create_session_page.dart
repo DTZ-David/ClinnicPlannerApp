@@ -14,7 +14,8 @@ import '../../../domain/controller/control_pacientefirebase.dart';
 import '../../../domain/controller/control_sesionfirebase.dart';
 
 class CreateSessionPage extends StatefulWidget {
-  const CreateSessionPage({super.key});
+  final String id;
+  const CreateSessionPage({super.key, required this.id});
 
   @override
   State<CreateSessionPage> createState() => _CreateSessionPageState();
@@ -53,6 +54,12 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
         id = i + 1;
       }
     });
+
+    void CargarId() {
+      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
+        id = i + 1;
+      }
+    }
 
     final Stream<QuerySnapshot> _paciente = FirebaseFirestore.instance
         .collection('Paciente')
@@ -290,7 +297,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                             final sesion = Sesion(
                               idSesion: id.toString(),
                               idPaciente: idPaciente,
-                              idPsicologo: "49743233",
+                              idPsicologo: widget.id,
                               fecha: (listaFechasN[aux2]),
                               hora: hora2,
                               notasSesion: '',
@@ -299,6 +306,9 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                             PeticionesSesion.createSesion(sesion);
                             mensajeAlerta(
                                 context, 'Su sesion se agendo correctamente');
+                            setState(() {
+                              CargarId();
+                            });
                           },
                           child: const Text(
                             'Agendar',

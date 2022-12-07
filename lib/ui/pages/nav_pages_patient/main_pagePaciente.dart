@@ -28,7 +28,7 @@ class _MainPagePacienteState extends State<MainPagePaciente> {
   Widget build(BuildContext context) {
     List pages = [
       HomePagePaciente(id: widget.id),
-      const CreateSessionPacientePage(),
+      CreateSessionPacientePage(id: widget.id),
       const AgendaPage(),
       const SettingsPage(),
       const EditProfilePage()

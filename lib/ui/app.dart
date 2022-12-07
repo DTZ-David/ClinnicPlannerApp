@@ -1,3 +1,5 @@
+import 'package:clinnic_planner/ui/pages/nav_pages_patient/main_pagePaciente.dart';
+import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/main_page.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/perfil_edit.dart';
 import 'package:clinnic_planner/ui/pages/nav_pages_psychologist/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,12 @@ class App extends StatelessWidget {
         '/loginf': (context) => const Loginf(),
         '/registroLog': (context) => const Registro(),
         '/editprofilepage': (context) => const EditProfilePage(),
-        //'/mainpage': (context) => const MainPage(),
-        //'/mainpagepaciente': (context) => const MainPagePaciente(),
+        '/mainpage': (context) => const MainPage(
+              id: '',
+            ),
+        '/mainpagepaciente': (context) => const MainPagePaciente(
+              id: '',
+            ),
         '/settingspage': (context) => const SettingsPage()
       },
       home: const HomeL(),
