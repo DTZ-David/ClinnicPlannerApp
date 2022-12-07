@@ -145,7 +145,7 @@ class CargarCards2 extends StatelessWidget {
     return nombresFinalizado.isEmpty
         ? Center(
             child: LoadingAnimationWidget.staggeredDotsWave(
-            color: Colors.white,
+            color: const Color.fromARGB(150, 6, 68, 108),
             size: 200,
           ))
         : ListView.builder(
@@ -222,7 +222,7 @@ class _CargarCardsState extends State<CargarCards> {
     return nombres.isEmpty
         ? Center(
             child: LoadingAnimationWidget.staggeredDotsWave(
-            color: Colors.white,
+            color: const Color.fromARGB(150, 6, 68, 108),
             size: 200,
           ))
         : ListView.builder(
