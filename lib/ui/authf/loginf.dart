@@ -205,12 +205,14 @@ class _LoginfState extends State<Loginf> {
                   if (controladorUser.getUserGeneral![i].email ==
                       controluser.text) {
                     if (controladorUser.getUserGeneral![i].rol == 'Psicologo') {
-                      Get.to(() => const MainPage(),
+                      id2 = controladorUser.getUserGeneral![i].id;
+                      Get.to(() => MainPage(id: id2),
                           transition: Transition.cupertino,
                           duration: const Duration(seconds: 1));
                     } else {
                       id2 = controladorUser.getUserGeneral![i].id;
-                      Get.to(() => MainPagePaciente("1065854795"),
+
+                      Get.to(() => MainPagePaciente(id: id2),
                           transition: Transition.cupertino,
                           duration: const Duration(seconds: 1));
                     }

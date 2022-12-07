@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:async';
 
@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import '../../../data/services/peticionesSesionFirebase.dart';
 
 class HomePagePaciente extends StatefulWidget {
-  String id;
-  HomePagePaciente(this.id, {super.key});
+  final String id;
+  const HomePagePaciente({super.key, required this.id});
 
   @override
   State<HomePagePaciente> createState() => _HomePagePacienteState();
@@ -36,9 +36,6 @@ class _HomePagePacienteState extends State<HomePagePaciente>
 
   @override
   Widget build(BuildContext context) {
-    print(
-        '-------------------------------------44444444444-------------------------');
-    print(widget.id);
     nombres = [];
     hora = [];
     notas = [];
@@ -217,7 +214,7 @@ class CargarCards extends StatefulWidget {
 class _CargarCardsState extends State<CargarCards> {
   TextEditingController controladorNotas = TextEditingController();
   ConsultasControllerSesion controlSesion = ConsultasControllerSesion();
-  var selectedItem = null;
+  var selectedItem;
   var idSesion;
 
   @override
@@ -266,11 +263,13 @@ class _CargarCardsState extends State<CargarCards> {
                                                       BorderRadius.circular(10),
                                                   borderSide: const BorderSide(
                                                       width: 1,
-                                                      color: Colors.black))),
+                                                      color: Color.fromARGB(
+                                                          255, 36, 0, 167)))),
                                           value: selectedItem,
-                                          dropdownColor: Color.fromARGB(
+                                          dropdownColor: const Color.fromARGB(
                                               255, 255, 255, 255),
                                           isExpanded: true,
+
                                           items: <String>[
                                             "Seleccione",
                                             "Finalizado",
@@ -308,9 +307,15 @@ class _CargarCardsState extends State<CargarCards> {
                                           color: Colors.redAccent)),
                                   IconButton(
                                       onPressed: () {
-                                        //if!(selectedItem.toString() == "Seleccione"){
+                                        PeticionesSesion.actualizarNotas(
+                                            "2", controladorNotas.text);
+
+                                        //if!(selectedItem == "Seleccione"){
                                         PeticionesSesion.actualizarEstado(
-                                            "2", selectedItem.toString());
+                                            controlSesion
+                                                .getSesionGnral![index].idSesion
+                                                .toString(),
+                                            selectedItem.toString());
                                         // }
                                         Navigator.of(context).pop();
                                       },

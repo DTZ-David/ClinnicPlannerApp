@@ -9,21 +9,14 @@ import '../nav_pages_psychologist/perfil_edit.dart';
 import '../nav_pages_psychologist/settings_page.dart';
 
 class MainPagePaciente extends StatefulWidget {
-  String id;
-  MainPagePaciente(this.id, {super.key});
+  final String id;
+  const MainPagePaciente({super.key, required this.id});
 
   @override
   State<MainPagePaciente> createState() => _MainPagePacienteState();
 }
 
 class _MainPagePacienteState extends State<MainPagePaciente> {
-  List pages = [
-    HomePagePaciente("10658544795"),
-    const CreateSessionPacientePage(),
-    const AgendaPage(),
-    const SettingsPage(),
-    const EditProfilePage()
-  ];
   int currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -33,6 +26,13 @@ class _MainPagePacienteState extends State<MainPagePaciente> {
 
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      HomePagePaciente(id: widget.id),
+      const CreateSessionPacientePage(),
+      const AgendaPage(),
+      const SettingsPage(),
+      const EditProfilePage()
+    ];
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

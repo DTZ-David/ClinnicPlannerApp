@@ -66,33 +66,34 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
     for (int i = 0; i < 7; i++) {
       if (dia == 1) {
         listaDias.add("Lunes");
+
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 2) {
         listaDias.add("Martes");
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 3) {
         listaDias.add("Miercoles");
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 4) {
         listaDias.add("Jueves");
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 5) {
         listaDias.add("Viernes");
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 6) {
         listaDias.add("Sabado");
         listaFechasN
-            .add('${DateTime.now().month}/$fecha/${DateTime.now().year}');
+            .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
       if (dia == 7) {
         listaDias.add("Lunes");
@@ -290,7 +291,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                               idSesion: id.toString(),
                               idPaciente: idPaciente,
                               idPsicologo: "49743233",
-                              fecha: listaFechasN[aux2],
+                              fecha: DateTime.parse(listaFechasN[aux2]),
                               hora: hora2,
                               notasSesion: '',
                               estado: 'Pendiente',

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'agenda_page.dart';
 import 'create_session_page.dart';
 import 'home_page.dart';
@@ -7,20 +6,14 @@ import 'perfil_edit.dart';
 import 'settings_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  final String id;
+  const MainPage({super.key, required this.id});
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  List pages = [
-    const HomePage(),
-    const CreateSessionPage(),
-    const AgendaPage(),
-    const SettingsPage(),
-    const EditProfilePage()
-  ];
   int currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -30,6 +23,13 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    List pages = [
+      HomePage(id: widget.id),
+      const CreateSessionPage(),
+      const AgendaPage(),
+      const SettingsPage(),
+      const EditProfilePage()
+    ];
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

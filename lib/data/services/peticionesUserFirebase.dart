@@ -12,7 +12,7 @@ class PeticionesUser {
 
   static Future createUser(User user) async {
     final docUser =
-        FirebaseFirestore.instance.collection("Usuarios").doc(user.email);
+        FirebaseFirestore.instance.collection("Usuarios").doc(user.id);
 
     final json = user.toJson();
     await docUser.set(json);

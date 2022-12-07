@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'dart:async';
 import 'package:clinnic_planner/data/services/peticionesSesionFirebase.dart';
@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String id;
+  const HomePage({super.key, required this.id});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 List<String> nombres = [];
 List<String> hora = [];
 List<String> notas = [];
+List<String> fotos = [];
 
 List<String> nombresFinalizado = [];
 List<String> horasFinalizado = [];
@@ -24,14 +26,9 @@ List<String> horasFinalizado = [];
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   ConsultasControllerSesion controladorSesion = Get.find();
   ConsultasControllerPaciente controladorPaciente = Get.find();
-  var images = {
-    'paciente.png': 'Luz Mendoza',
-    'paciente_2.png': 'Angie Salazar',
-    'psicologo.png': 'Moises Quiroz'
-  };
-
   @override
   Widget build(BuildContext context) {
+    fotos = [];
     nombres = [];
     hora = [];
     notas = [];
@@ -49,6 +46,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             nombres.add(controladorPaciente.getPacienteGnral![j].nombre);
             hora.add(controladorSesion.getSesionGnral![i].hora);
             notas.add(controladorSesion.getSesionGnral![i].notasSesion);
+            fotos.add(controladorPaciente.getPacienteGnral![j].foto);
           }
         }
       }
@@ -114,9 +112,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       width: double.maxFinite,
                       child: TabBarView(
                         controller: tabController,
-                        children: [
-                          CargarCards(images: images),
-                          CargarCards2(images: images),
+                        children: const [
+                          CargarCards(),
+                          CargarCards2(),
                         ],
                       ),
                     ),
@@ -130,10 +128,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 class CargarCards2 extends StatelessWidget {
   const CargarCards2({
     Key? key,
-    required this.images,
   }) : super(key: key);
-
-  final Map<String, String> images;
 
   @override
   Widget build(BuildContext context) {
@@ -166,8 +161,7 @@ class CargarCards2 extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(80)),
                             elevation: 2,
-                            child: Image.asset(
-                                'assets/images/${images.keys.elementAt(index)}'),
+                            child: Image.network(fotos.elementAt(index)),
                           ),
                         ),
                       ),
@@ -199,9 +193,7 @@ class CargarCards2 extends StatelessWidget {
 class CargarCards extends StatefulWidget {
   const CargarCards({
     Key? key,
-    required this.images,
   }) : super(key: key);
-  final Map<String, String> images;
 
   @override
   State<CargarCards> createState() => _CargarCardsState();
@@ -210,7 +202,7 @@ class CargarCards extends StatefulWidget {
 class _CargarCardsState extends State<CargarCards> {
   TextEditingController controladorNotas = TextEditingController();
   ConsultasControllerSesion controlSesion = ConsultasControllerSesion();
-  var selectedItem = null;
+  var selectedItem;
   var idSesion;
 
   @override
@@ -281,8 +273,8 @@ class _CargarCardsState extends State<CargarCards> {
                                                     color: Color.fromARGB(
                                                         255, 36, 0, 167)))),
                                         value: selectedItem,
-                                        dropdownColor:
-                                            Color.fromARGB(255, 255, 255, 255),
+                                        dropdownColor: const Color.fromARGB(
+                                            255, 255, 255, 255),
                                         isExpanded: true,
 
                                         items: <String>[
@@ -355,8 +347,7 @@ class _CargarCardsState extends State<CargarCards> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(80)),
                               elevation: 2,
-                              child: Image.asset(
-                                  'assets/images/${widget.images.keys.elementAt(index)}'),
+                              child: Image.network(fotos.elementAt(index)),
                             ),
                           ),
                         ),
