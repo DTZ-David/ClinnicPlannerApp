@@ -20,7 +20,6 @@ List<String> nombres = [];
 List<String> hora = [];
 List<String> notas = [];
 List<String> fotos = [];
-
 List<String> nombresFinalizado = [];
 List<String> horasFinalizado = [];
 

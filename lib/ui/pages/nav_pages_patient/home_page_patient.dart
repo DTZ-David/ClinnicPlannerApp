@@ -21,7 +21,7 @@ class HomePagePaciente extends StatefulWidget {
 List<String> nombres = [];
 List<String> hora = [];
 List<String> notas = [];
-
+List<String> fotos = [];
 List<String> nombresFinalizado = [];
 List<String> horasFinalizado = [];
 
@@ -39,6 +39,7 @@ class _HomePagePacienteState extends State<HomePagePaciente>
   Widget build(BuildContext context) {
     nombres = [];
     hora = [];
+    fotos = [];
     notas = [];
 
     nombresFinalizado = [];
@@ -54,6 +55,7 @@ class _HomePagePacienteState extends State<HomePagePaciente>
             nombres.add(controladorPaciente.getPacienteGnral![j].nombre);
             hora.add(controladorSesion.getSesionGnral![i].hora);
             notas.add(controladorSesion.getSesionGnral![i].notasSesion);
+            fotos.add(controladorPaciente.getPacienteGnral![j].foto);
           }
         }
       }
@@ -182,8 +184,7 @@ class CargarCards2 extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(80)),
                             elevation: 2,
-                            child: Image.asset(
-                                'assets/images/${images.keys.elementAt(index)}'),
+                            child: Image.network(fotos.elementAt(index)),
                           ),
                         ),
                       ),
@@ -283,7 +284,6 @@ class _CargarCardsState extends State<CargarCards> {
                                           dropdownColor: const Color.fromARGB(
                                               255, 255, 255, 255),
                                           isExpanded: true,
-
                                           items: <String>[
                                             "Seleccione",
                                             "Finalizado",
@@ -357,8 +357,7 @@ class _CargarCardsState extends State<CargarCards> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(80)),
                                 elevation: 2,
-                                child: Image.asset(
-                                    'assets/images/${widget.images.keys.elementAt(index)}'),
+                                child: Image.network(fotos.elementAt(index)),
                               ),
                             ),
                           ),
