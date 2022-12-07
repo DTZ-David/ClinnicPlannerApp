@@ -75,7 +75,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
             onStepContinue: () {
               final isLastStep = currentStep == getSteps().length - 1;
               if (isLastStep) {
-                Get.offAllNamed("/loginf");
+                //Get.offAllNamed("/loginf");
                 // var paciente = <String, dynamic>{
                 //   'tipoId': tipoId,
                 //   'identificacion': controlidentificacion.text,
@@ -113,7 +113,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
                 PeticionesUser.createUser(user);
                 createUser(paciente, _image);
                 controladorPaciente.consultaPaciente().then((value) => null);
-                Get.offAllNamed('/mainpagepaciente');
+                Get.offAllNamed('/loginf');
               } else {
                 setState(() => currentStep += 1);
               }
