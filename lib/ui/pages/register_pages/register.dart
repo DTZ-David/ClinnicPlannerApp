@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../../../data/services/peticionesUserFirebase.dart';
 import '../../../domain/controller/control_pacientefirebase.dart';
+import '../../../domain/controller/controluserf.dart';
 import '../../../domain/models/paciente.dart';
 import '../../../domain/models/user.dart';
 
@@ -44,6 +45,7 @@ class _RegisterStepperState extends State<RegisterStepper> {
   TextEditingController controledad = TextEditingController();
 
   ConsultasControllerPaciente controladorPaciente = Get.find();
+  ControlAuthFirebase controlu = Get.find();
 
   _camGaleria(bool op) async {
     XFile? image;
@@ -111,9 +113,25 @@ class _RegisterStepperState extends State<RegisterStepper> {
                     rol: 'Paciente',
                     id: controlidentificacion.text);
                 PeticionesUser.createUser(user);
-                createUser(paciente, _image);
-                controladorPaciente.consultaPaciente().then((value) => null);
-                Get.offAllNamed('/loginf');
+                controlu
+                    .registrarEmail(widget.user, widget.password)
+                    .then((value) {
+                  if (controlu.emailf != 'Sin Registro') {
+                    createUser(paciente, _image);
+                    controladorPaciente
+                        .consultaPaciente()
+                        .then((value) => null);
+                    Get.offAllNamed('/loginf');
+                  } else {
+                    Get.showSnackbar(const GetSnackBar(
+                      title: 'Validacion de Usuarios',
+                      message: 'Datos Invalidos',
+                      icon: Icon(Icons.warning),
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.red,
+                    ));
+                  }
+                });
               } else {
                 setState(() => currentStep += 1);
               }

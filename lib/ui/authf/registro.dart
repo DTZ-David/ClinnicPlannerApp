@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../domain/controller/controluserf.dart';
 
-
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
 
@@ -144,25 +143,11 @@ class _RegistroState extends State<Registro> {
       } else {
         setState(() {
           _loading = true;
-          controlu
-              .registrarEmail(controluser.text, controlpassw.text)
-              .then((value) {
-            if (controlu.emailf != 'Sin Registro') {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RegisterStepper(
-                          controluser.text, controlpassw.text)));
-            } else {
-              Get.showSnackbar(const GetSnackBar(
-                title: 'Validacion de Usuarios',
-                message: 'Datos Invalidos',
-                icon: Icon(Icons.warning),
-                duration: Duration(seconds: 5),
-                backgroundColor: Colors.red,
-              ));
-            }
-          });
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      RegisterStepper(controluser.text, controlpassw.text)));
         });
       }
     }
