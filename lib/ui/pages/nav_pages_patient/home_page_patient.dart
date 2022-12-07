@@ -6,6 +6,7 @@ import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart'
 import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../data/services/peticionesSesionFirebase.dart';
 
@@ -151,9 +152,11 @@ class CargarCards2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return nombresFinalizado.isEmpty
-        ? const Center(
-            child: Text('No hay sesiones en el historial'),
-          )
+        ? Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+            color: Colors.white,
+            size: 200,
+          ))
         : ListView.builder(
             itemCount: nombresFinalizado.length,
             //scrollDirection: Axis.horizontal,
@@ -229,9 +232,11 @@ class _CargarCardsState extends State<CargarCards> {
   @override
   Widget build(BuildContext context) {
     return nombres.isEmpty
-        ? const Center(
-            child: Text('No hay sesiones en la agenda'),
-          )
+        ? Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+            color: Colors.white,
+            size: 200,
+          ))
         : ListView.builder(
             itemCount: nombres.length,
             //scrollDirection: Axis.horizontal,
