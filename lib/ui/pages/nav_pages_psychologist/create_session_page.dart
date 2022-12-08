@@ -55,7 +55,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
       }
     });
 
-    void CargarId() {
+    void cargarId() {
       for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
         id = i + 1;
       }
@@ -307,7 +307,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                             mensajeAlerta(
                                 context, 'Su sesion se agendo correctamente');
                             setState(() {
-                              CargarId();
+                              cargarId();
                             });
                           },
                           child: const Text(

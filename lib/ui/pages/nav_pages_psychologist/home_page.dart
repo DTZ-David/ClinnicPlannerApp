@@ -6,7 +6,6 @@ import 'package:clinnic_planner/domain/controller/control_pacientefirebase.dart'
 import 'package:clinnic_planner/domain/controller/control_sesionfirebase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String id;
@@ -20,6 +19,7 @@ List<String> nombres = [];
 List<String> hora = [];
 List<String> notas = [];
 List<String> fotos = [];
+
 List<String> nombresFinalizado = [];
 List<String> horasFinalizado = [];
 
@@ -40,13 +40,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     final miTimer = Timer(const Duration(seconds: 3), () {
       for (var i = 0; i < controladorSesion.getSesionGnral!.length; i++) {
-        for (var j = 0; j < controladorPaciente.getPacienteGnral!.length; j++) {
-          if (controladorPaciente.getPacienteGnral![j].identificacion ==
-              controladorSesion.getSesionGnral![i].idPaciente) {
-            nombres.add(controladorPaciente.getPacienteGnral![j].nombre);
-            hora.add(controladorSesion.getSesionGnral![i].hora);
-            notas.add(controladorSesion.getSesionGnral![i].notasSesion);
-            fotos.add(controladorPaciente.getPacienteGnral![j].foto);
+        if (widget.id == controladorSesion.getSesionGnral![i].idPsicologo) {
+          for (var j = 0;
+              j < controladorPaciente.getPacienteGnral!.length;
+              j++) {
+            if (controladorPaciente.getPacienteGnral![j].identificacion ==
+                controladorSesion.getSesionGnral![i].idPaciente) {
+              nombres.add(controladorPaciente.getPacienteGnral![j].nombre);
+              hora.add(controladorSesion.getSesionGnral![i].hora);
+              notas.add(controladorSesion.getSesionGnral![i].notasSesion);
+              fotos.add(controladorPaciente.getPacienteGnral![j].foto);
+            }
           }
         }
       }
@@ -99,7 +103,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 radius: 4),
                             tabs: const [
                               Tab(
-                                text: 'Inicio Psicologo',
+                                text: 'Inicio',
                               ),
                               Tab(
                                 text: 'Historial',
@@ -142,11 +146,9 @@ class CargarCards2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return nombresFinalizado.isEmpty
-        ? Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
-            color: const Color.fromARGB(150, 6, 68, 108),
-            size: 200,
-          ))
+        ? const Center(
+            child: Text('No hay sesiones registradas'),
+          )
         : ListView.builder(
             itemCount: nombresFinalizado.length,
             //scrollDirection: Axis.horizontal,
@@ -219,11 +221,9 @@ class _CargarCardsState extends State<CargarCards> {
   @override
   Widget build(BuildContext context) {
     return nombres.isEmpty
-        ? Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
-            color: const Color.fromARGB(150, 6, 68, 108),
-            size: 200,
-          ))
+        ? const Center(
+            child: Text('No hay sesiones registradas'),
+          )
         : ListView.builder(
             itemCount: nombres.length,
             //scrollDirection: Axis.horizontal,

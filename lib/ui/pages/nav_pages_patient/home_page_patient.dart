@@ -155,9 +155,9 @@ class CargarCards2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return nombresFinalizado.isEmpty
         ? Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
+            child: LoadingAnimationWidget.threeRotatingDots(
             color: const Color.fromARGB(150, 6, 68, 108),
-            size: 200,
+            size: 100,
           ))
         : ListView.builder(
             itemCount: nombresFinalizado.length,
@@ -234,9 +234,9 @@ class _CargarCardsState extends State<CargarCards> {
   Widget build(BuildContext context) {
     return nombres.isEmpty
         ? Center(
-            child: LoadingAnimationWidget.staggeredDotsWave(
+            child: LoadingAnimationWidget.threeRotatingDots(
             color: const Color.fromARGB(150, 6, 68, 108),
-            size: 200,
+            size: 100,
           ))
         : ListView.builder(
             itemCount: nombres.length,
