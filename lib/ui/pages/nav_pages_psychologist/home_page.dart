@@ -19,9 +19,11 @@ List<String> nombres = [];
 List<String> hora = [];
 List<String> notas = [];
 List<String> fotos = [];
+List<String> idNotas = [];
 
 List<String> nombresFinalizado = [];
 List<String> horasFinalizado = [];
+List<String> fotosFinalizado = [];
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   ConsultasControllerSesion controladorSesion = Get.find();
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     nombres = [];
     hora = [];
     notas = [];
+    idNotas = [];
 
     nombresFinalizado = [];
     horasFinalizado = [];
@@ -45,11 +48,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               j < controladorPaciente.getPacienteGnral!.length;
               j++) {
             if (controladorPaciente.getPacienteGnral![j].identificacion ==
-                controladorSesion.getSesionGnral![i].idPaciente) {
+                    controladorSesion.getSesionGnral![i].idPaciente &&
+                controladorSesion.getSesionGnral![i].estado == 'Pendiente') {
               nombres.add(controladorPaciente.getPacienteGnral![j].nombre);
               hora.add(controladorSesion.getSesionGnral![i].hora);
               notas.add(controladorSesion.getSesionGnral![i].notasSesion);
               fotos.add(controladorPaciente.getPacienteGnral![j].foto);
+              idNotas.add(controladorSesion.getSesionGnral![i].idSesion);
             }
           }
         }
@@ -58,13 +63,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     final miTimer2 = Timer(const Duration(seconds: 3), () {
       for (var i = 0; i < controladorSesion.getSesionGnral!.length; i++) {
-        for (var j = 0; j < controladorPaciente.getPacienteGnral!.length; j++) {
-          if (controladorPaciente.getPacienteGnral![j].identificacion ==
-              controladorSesion.getSesionGnral![i].idPaciente) {
-            if (controladorSesion.getSesionGnral![i].estado != 'Pendiente') {
-              nombresFinalizado
-                  .add(controladorPaciente.getPacienteGnral![j].nombre);
-              horasFinalizado.add(controladorSesion.getSesionGnral![i].hora);
+        if (widget.id == controladorSesion.getSesionGnral![i].idPsicologo) {
+          for (var j = 0;
+              j < controladorPaciente.getPacienteGnral!.length;
+              j++) {
+            if (controladorPaciente.getPacienteGnral![j].identificacion ==
+                controladorSesion.getSesionGnral![i].idPaciente) {
+              if (controladorSesion.getSesionGnral![i].estado != 'Pendiente') {
+                nombresFinalizado
+                    .add(controladorPaciente.getPacienteGnral![j].nombre);
+                horasFinalizado.add(controladorSesion.getSesionGnral![i].hora);
+                fotosFinalizado
+                    .add(controladorPaciente.getPacienteGnral![j].foto);
+              }
             }
           }
         }
@@ -174,7 +185,8 @@ class CargarCards2 extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(80)),
                             elevation: 2,
-                            child: Image.network(fotos.elementAt(index)),
+                            child:
+                                Image.network(fotosFinalizado.elementAt(index)),
                           ),
                         ),
                       ),
@@ -328,11 +340,13 @@ class _CargarCardsState extends State<CargarCards> {
                                 IconButton(
                                     onPressed: () {
                                       PeticionesSesion.actualizarNotas(
-                                          "2", controladorNotas.text);
+                                          idNotas.elementAt(index),
+                                          controladorNotas.text);
 
                                       //if!(selectedItem == "Seleccione"){
                                       PeticionesSesion.actualizarEstado(
-                                          "2", selectedItem.toString());
+                                          idNotas.elementAt(index),
+                                          selectedItem.toString());
                                       // }
                                       Navigator.of(context).pop();
                                     },
