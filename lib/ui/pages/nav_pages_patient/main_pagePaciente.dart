@@ -29,7 +29,7 @@ class _MainPagePacienteState extends State<MainPagePaciente> {
     List pages = [
       HomePagePaciente(id: widget.id),
       CreateSessionPacientePage(id: widget.id),
-      const AgendaPage(),
+      AgendaPage(id: widget.id),
       const SettingsPage(),
       const EditProfilePage()
     ];

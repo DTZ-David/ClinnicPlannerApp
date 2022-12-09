@@ -197,7 +197,8 @@ class _LoginfState extends State<Loginf> {
           controlu
               .iniciarSesion(controluser.text, controlpassw.text)
               .then((value) {
-            if (controlu.emailf != 'Sin Registro') {
+            if (controlu.emailf != 'Sin Registro' &&
+                controlu.uid != 'Sin Registro') {
               final miTimer = Timer(const Duration(seconds: 3), () {
                 for (var i = 0;
                     i < controladorUser.getUserGeneral!.length;
@@ -227,6 +228,9 @@ class _LoginfState extends State<Loginf> {
                 duration: Duration(seconds: 5),
                 backgroundColor: Colors.red,
               ));
+              setState(() {
+                _loading = false;
+              });
             }
           });
         });

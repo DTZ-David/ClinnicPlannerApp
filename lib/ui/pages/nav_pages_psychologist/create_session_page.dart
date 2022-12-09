@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: unused_local_variable, no_leading_underscores_for_local_identifiers, avoid_print, prefer_typing_uninitialized_variables, unnecessary_null_comparison
 
 import 'dart:async';
 
@@ -26,11 +26,11 @@ var identificacion = '';
 var imagen = '';
 var fecha2;
 var hora2;
-var id = 1;
+var id;
 var idPaciente;
 var idPsicologo;
 var _index;
-var aux2;
+var aux2 = 0;
 
 class _CreateSessionPageState extends State<CreateSessionPage> {
   ConsultasControllerSesion controladorSesion = Get.find();
@@ -50,13 +50,10 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
           _index = i;
         }
       }
-      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
-        id = i + 1;
-      }
     });
 
     void cargarId() {
-      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
+      for (var i = 0; i <= controladorSesion.getSesionGnral!.length; i++) {
         id = i + 1;
       }
     }
@@ -73,7 +70,6 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
     for (int i = 0; i < 7; i++) {
       if (dia == 1) {
         listaDias.add("Lunes");
-
         listaFechasN
             .add('$fecha/${DateTime.now().month}/${DateTime.now().year}');
       }
@@ -165,6 +161,7 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                         .identificacion;
                                     imagen = controladorPaciente
                                         .getPacienteGnral![_index].foto;
+                                    cargarId();
                                   });
                                 },
                               );
@@ -294,21 +291,34 @@ class _CreateSessionPageState extends State<CreateSessionPage> {
                                 borderRadius: BorderRadius.circular(18.0),
                               ))),
                           onPressed: () {
-                            final sesion = Sesion(
-                              idSesion: id.toString(),
-                              idPaciente: idPaciente,
-                              idPsicologo: widget.id,
-                              fecha: (listaFechasN[aux2]),
-                              hora: hora2,
-                              notasSesion: '',
-                              estado: 'Pendiente',
-                            );
-                            PeticionesSesion.createSesion(sesion);
-                            mensajeAlerta(
-                                context, 'Su sesion se agendo correctamente');
-                            setState(() {
-                              cargarId();
-                            });
+                            if (id.toString().isEmpty ||
+                                aux2 == null ||
+                                idPaciente == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      backgroundColor:
+                                          Color.fromARGB(250, 6, 68, 108),
+                                      content: Text(
+                                        'Por favor ingrese los datos para agendar la sesión',
+                                        style: TextStyle(color: Colors.white),
+                                      )));
+                            } else {
+                              final sesion = Sesion(
+                                idSesion: id.toString(),
+                                idPaciente: idPaciente,
+                                idPsicologo: widget.id,
+                                fecha: (listaFechasN[aux2]),
+                                hora: hora2,
+                                notasSesion: '',
+                                estado: 'Pendiente',
+                              );
+                              PeticionesSesion.createSesion(sesion);
+                              mensajeAlerta(
+                                  context, 'Su sesion se agendo correctamente');
+                              setState(() {
+                                cargarId();
+                              });
+                            }
                           },
                           child: const Text(
                             'Agendar',
@@ -339,6 +349,7 @@ class CargarHora extends StatefulWidget {
 class _CargarHoraState extends State<CargarHora> {
   @override
   Widget build(BuildContext context) {
+    hora2 = widget.hora[0];
     return Container(
       width: double.maxFinite,
       height: 50,
@@ -400,6 +411,7 @@ int color = 0;
 class _CargarFechaState extends State<CargarFecha> {
   @override
   Widget build(BuildContext context) {
+    fecha2 = widget.listFechas[0];
     return Container(
       width: double.maxFinite,
       height: 80,

@@ -41,15 +41,7 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
 
     final miTimer = Timer(const Duration(seconds: 3), () {
       for (var i = 0; i < controllerPsicologo.getPacienteGnral!.length; i++) {
-        if (controllerPsicologo.getPacienteGnral![i].identificacion !=
-            'Identificación:') {
-          list.add(controllerPsicologo.getPacienteGnral![i].nombre);
-        } else {
-          _index = i;
-        }
-      }
-      for (var i = 1; i <= controladorSesion.getSesionGnral!.length; i++) {
-        id = i + 1;
+        list.add(controllerPsicologo.getPacienteGnral![i].nombre);
       }
     });
 
@@ -58,15 +50,6 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
         id = i + 1;
       }
     }
-
-    // Future<String?> cargarImg(String name) async {
-    //   try {
-    //     var task =
-    //         await FirebaseStorage.instance.ref('Pacientes').child('1193231096');
-    //     print('----------------------------');
-    //     return await task.getDownloadURL();
-    //   } on FirebaseException catch (_) {}
-    // }
 
     final Stream<QuerySnapshot> _paciente = FirebaseFirestore.instance
         .collection('Psicologos')
@@ -170,6 +153,7 @@ class _CreateSessionPacientePageState extends State<CreateSessionPacientePage> {
                                         .identificacion;
                                     imagen = controllerPsicologo
                                         .getPacienteGnral![_index].foto;
+                                    cargarId();
                                   });
                                 },
                               );

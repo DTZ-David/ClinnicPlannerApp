@@ -301,7 +301,6 @@ class _CargarCardsState extends State<CargarCards> {
                                               255, 255, 255, 255),
                                           isExpanded: true,
                                           items: <String>[
-                                            "Seleccione",
                                             "Finalizado",
                                             "Cancelado",
                                           ].map((String items) {
@@ -337,12 +336,14 @@ class _CargarCardsState extends State<CargarCards> {
                                           color: Colors.redAccent)),
                                   IconButton(
                                       onPressed: () {
-                                        //if!(selectedItem == "Seleccione"){
-                                        PeticionesSesion.actualizarEstado(
-                                            idNotas.elementAt(index),
-                                            selectedItem.toString());
-                                        // }
+                                        if (selectedItem != "Seleccione" &&
+                                            selectedItem != null) {
+                                          PeticionesSesion.actualizarEstado(
+                                              idNotas.elementAt(index),
+                                              selectedItem.toString());
+                                        }
                                         Navigator.of(context).pop();
+                                        setState(() {});
                                       },
                                       icon: const Icon(Icons.check,
                                           color: Colors.green)),

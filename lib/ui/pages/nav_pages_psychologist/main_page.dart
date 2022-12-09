@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'agenda_page.dart';
 import 'create_session_page.dart';
 import 'home_page.dart';
@@ -26,7 +27,7 @@ class _MainPageState extends State<MainPage> {
     List pages = [
       HomePage(id: widget.id),
       CreateSessionPage(id: widget.id),
-      const AgendaPage(),
+      AgendaPage(id: widget.id),
       const SettingsPage(),
       const EditProfilePage()
     ];

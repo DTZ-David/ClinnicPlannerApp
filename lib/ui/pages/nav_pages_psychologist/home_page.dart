@@ -289,7 +289,7 @@ class _CargarCardsState extends State<CargarCards> {
                                           horizontal: 20, vertical: 50),
                                       child: DropdownButtonFormField<String>(
                                         decoration: InputDecoration(
-                                            hintText: "Estado de la Sesión",
+                                            hintText: "Seleccione",
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
@@ -303,7 +303,6 @@ class _CargarCardsState extends State<CargarCards> {
                                         isExpanded: true,
 
                                         items: <String>[
-                                          "Seleccione",
                                           "Finalizado",
                                           "Cancelado",
                                         ].map((String items) {
@@ -343,11 +342,13 @@ class _CargarCardsState extends State<CargarCards> {
                                           idNotas.elementAt(index),
                                           controladorNotas.text);
 
-                                      //if!(selectedItem == "Seleccione"){
-                                      PeticionesSesion.actualizarEstado(
-                                          idNotas.elementAt(index),
-                                          selectedItem.toString());
-                                      // }
+                                      if (selectedItem != "Seleccione" &&
+                                          selectedItem != null) {
+                                        PeticionesSesion.actualizarEstado(
+                                            idNotas.elementAt(index),
+                                            selectedItem.toString());
+                                      }
+
                                       Navigator.of(context).pop();
                                     },
                                     icon: const Icon(Icons.check,

@@ -20,5 +20,6 @@ Future<void> main() async {
   Get.put(ConsultasControllerSesion());
   Get.put(ConsultasControllerPsicologo());
   Get.put(PeticionesSesion());
+
   runApp(const App());
 }
