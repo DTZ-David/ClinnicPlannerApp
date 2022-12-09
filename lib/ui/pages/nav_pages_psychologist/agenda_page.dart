@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, unused_local_variable, avoid_print
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -256,7 +254,7 @@ class _topRowState extends State<topRow> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    insetPadding: const EdgeInsets.all(100),
+                    insetPadding: const EdgeInsets.fromLTRB(10, 180, 10, 180),
                     backgroundColor: Colors.white,
                     title: const Text(
                       "Seleccionar Mes",
